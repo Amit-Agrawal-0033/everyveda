@@ -5,6 +5,15 @@
 
 declare(strict_types=1);
 
+// Built-in PHP CLI Server router support for static assets
+if (php_sapi_name() === 'cli-server') {
+    $urlPath = parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH);
+    $filePath = __DIR__ . $urlPath;
+    if ($urlPath !== '/' && file_exists($filePath) && !is_dir($filePath)) {
+        return false;
+    }
+}
+
 require_once __DIR__ . '/../app/bootstrap.php';
 require_once __DIR__ . '/../routes/web.php';
 

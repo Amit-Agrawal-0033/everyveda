@@ -1,0 +1,19 @@
+# EveryVeda Root .htaccess for cPanel shared hosting (public_html deployment)
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Prevent direct access to sensitive directories and files
+    RewriteRule ^(\.env|app|config|database|storage|resources|vendor|tests|scripts) - [F,L,NC]
+
+    # Rewrite all requests to the public directory
+    RewriteCond %{REQUEST_URI} !^/public/
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
+
+# Block access to hidden files
+<FilesMatch "^\.">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+Options -Indexes

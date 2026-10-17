@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 60" width="240" height="60">
+  <defs>
+    <linearGradient id="leafGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#477A52"/>
+      <stop offset="100%" stop-color="#214D36"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#C6A45C"/>
+      <stop offset="100%" stop-color="#9A7B39"/>
+    </linearGradient>
+  </defs>
+  <!-- Leaf Emblem -->
+  <circle cx="28" cy="30" r="24" fill="url(#leafGrad)"/>
+  <path d="M 28 12 C 38 18 42 32 30 46 C 24 38 20 28 28 12 Z" fill="#FAF7EF" opacity="0.9"/>
+  <path d="M 28 12 C 18 18 14 32 26 46 C 32 38 36 28 28 12 Z" fill="url(#goldGrad)" opacity="0.85"/>
+  <circle cx="28" cy="28" r="4" fill="#FAF7EF"/>
+  <!-- Typography -->
+  <text x="62" y="34" font-family="Inter, Segoe UI, sans-serif" font-size="24" font-weight="800" fill="#214D36" letter-spacing="-0.5">Every<tspan fill="#C6A45C">Veda</tspan></text>
+  <text x="63" y="48" font-family="Inter, Segoe UI, sans-serif" font-size="7.5" font-weight="700" fill="#477A52" letter-spacing="1.5">PURE AYURVEDIC LIVING</text>
+</svg>

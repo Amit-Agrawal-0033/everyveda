@@ -1,0 +1,29 @@
+# Environment file
+.env
+
+# Dependencies
+/vendor/
+
+# Storage
+/storage/logs/*.log
+/storage/cache/*
+/storage/invoices/*.pdf
+/storage/invoices/*.html
+/storage/uploads/private/*
+
+# Keep .gitkeep files in storage directories
+!/storage/logs/.gitkeep
+!/storage/cache/.gitkeep
+!/storage/invoices/.gitkeep
+!/storage/uploads/.gitkeep
+
+# Operating System files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace

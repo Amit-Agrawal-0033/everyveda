@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 450" width="1200" height="450">
+      <defs>
+        <linearGradient id="bgG" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#163524"/>
+          <stop offset="50%" stop-color="#214D36"/>
+          <stop offset="100%" stop-color="#366345"/>
+        </linearGradient>
+      </defs>
+      <rect width="1200" height="450" fill="url(#bgG)"/>
+      <circle cx="1050" cy="225" r="280" fill="#477A52" opacity="0.25"/>
+      <circle cx="1100" cy="225" r="180" fill="#C6A45C" opacity="0.15"/>
+      <!-- Leaves Decor -->
+      <path d="M 980 120 C 1040 160 1060 260 990 340 C 940 280 920 200 980 120 Z" fill="#C6A45C" opacity="0.3"/>
+      <text x="80" y="150" font-family="Inter, sans-serif" font-size="16" font-weight="700" fill="#C6A45C" letter-spacing="2">AUTHENTIC AYURVEDIC WELLNESS</text>
+      <text x="80" y="215" font-family="Inter, sans-serif" font-size="38" font-weight="800" fill="#FAF7EF">Royal Gold Chyawanprash For Immunity</text>
+      <text x="80" y="270" font-family="Inter, sans-serif" font-size="18" fill="#e2ddcf">Enriched with fresh forest Amla, pure Saffron &amp; Desi Cow Ghee.</text>
+      <rect x="80" y="320" width="190" height="50" rx="25" fill="#C6A45C"/>
+      <text x="175" y="352" font-family="Inter, sans-serif" font-size="16" font-weight="700" fill="#214D36" text-anchor="middle">SHOP NOW →</text>
+    </svg>

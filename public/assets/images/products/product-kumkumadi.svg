@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+      <defs>
+        <linearGradient id="g_1481f3d1d09f8d557c6d14ca5e50370e" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#C6A45C"/>
+          <stop offset="100%" stop-color="#142e20"/>
+        </linearGradient>
+      </defs>
+      <rect width="400" height="400" fill="#FAF7EF"/>
+      <ellipse cx="200" cy="340" rx="90" ry="16" fill="#e0dacb"/>
+      <path d="M 170 120 L 230 120 L 230 150 L 255 180 L 255 320 L 145 320 L 145 180 L 170 150 Z" fill="url(#g_1481f3d1d09f8d557c6d14ca5e50370e)"/>
+           <rect x="175" y="95" width="50" height="25" rx="4" fill="#C6A45C"/>
+           <rect x="155" y="195" width="90" height="95" rx="4" fill="#FAF7EF" stroke="#C6A45C" stroke-width="1.5"/>
+      <text x="200" y="215" font-family="Inter, sans-serif" font-size="10" font-weight="800" fill="#214D36" text-anchor="middle" letter-spacing="1">EVERYVEDA</text>
+      <text x="200" y="235" font-family="Inter, sans-serif" font-size="9" font-weight="700" fill="#26332B" text-anchor="middle">Kumkumadi Radiance Tailam</text>
+      <circle cx="200" cy="255" r="8" fill="#C6A45C" opacity="0.3"/>
+      <text x="200" y="258" font-family="sans-serif" font-size="9" font-weight="bold" fill="#214D36" text-anchor="middle">🌿</text>
+      <text x="200" y="272" font-family="Inter, sans-serif" font-size="7" font-weight="600" fill="#477A52" text-anchor="middle">100% PURE HERBAL</text>
+    </svg>

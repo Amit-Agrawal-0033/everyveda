@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <rect width="400" height="400" fill="#FAF7EF"/>
+  <circle cx="200" cy="200" r="90" fill="#e8e2d1"/>
+  <path d="M 200 130 C 240 150 250 210 200 270 C 150 210 160 150 200 130 Z" fill="#214D36" opacity="0.8"/>
+  <text x="200" y="320" font-family="Inter, sans-serif" font-size="16" font-weight="700" fill="#214D36" text-anchor="middle">EveryVeda Botanical</text>
+</svg>

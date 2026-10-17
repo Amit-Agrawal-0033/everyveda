@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /account/
+Disallow: /checkout
+Disallow: /cart
+Disallow: /api/
+Disallow: /webhook/
+
+Sitemap: https://everyveda.com/sitemap.xml

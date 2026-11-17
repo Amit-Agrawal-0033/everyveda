@@ -1,19 +1,30 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 450" width="1200" height="450">
-      <defs>
-        <linearGradient id="bgG" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="#163524"/>
-          <stop offset="50%" stop-color="#214D36"/>
-          <stop offset="100%" stop-color="#366345"/>
-        </linearGradient>
-      </defs>
-      <rect width="1200" height="450" fill="url(#bgG)"/>
-      <circle cx="1050" cy="225" r="280" fill="#477A52" opacity="0.25"/>
-      <circle cx="1100" cy="225" r="180" fill="#C6A45C" opacity="0.15"/>
-      <!-- Leaves Decor -->
-      <path d="M 980 120 C 1040 160 1060 260 990 340 C 940 280 920 200 980 120 Z" fill="#C6A45C" opacity="0.3"/>
-      <text x="80" y="150" font-family="Inter, sans-serif" font-size="16" font-weight="700" fill="#C6A45C" letter-spacing="2">AUTHENTIC AYURVEDIC WELLNESS</text>
-      <text x="80" y="215" font-family="Inter, sans-serif" font-size="38" font-weight="800" fill="#FAF7EF">Pure Ayurvedic Living Delivered</text>
-      <text x="80" y="270" font-family="Inter, sans-serif" font-size="18" fill="#e2ddcf">Handcrafted classical formulations with zero chemical additives.</text>
-      <rect x="80" y="320" width="190" height="50" rx="25" fill="#C6A45C"/>
-      <text x="175" y="352" font-family="Inter, sans-serif" font-size="16" font-weight="700" fill="#214D36" text-anchor="middle">SHOP NOW →</text>
-    </svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 520" width="1400" height="520">
+        <defs>
+          <radialGradient id="sunGlow" cx="75%" cy="35%" r="60%">
+            <stop offset="0%" stop-color="#C6A45C" stop-opacity="0.35"/>
+            <stop offset="50%" stop-color="#3d6b49" stop-opacity="0.15"/>
+            <stop offset="100%" stop-color="#142E20" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="forestBase" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#0f2418"/>
+            <stop offset="50%" stop-color="#1a3d2b"/>
+            <stop offset="100%" stop-color="#244d37"/>
+          </linearGradient>
+        </defs>
+        <rect width="1400" height="520" fill="url(#forestBase)"/>
+        <rect width="1400" height="520" fill="url(#sunGlow)"/>
+        <!-- Sacred Geometry / Mandala Motif -->
+        <circle cx="1150" cy="260" r="220" fill="none" stroke="#C6A45C" stroke-width="1.5" opacity="0.25"/>
+        <circle cx="1150" cy="260" r="160" fill="none" stroke="#C6A45C" stroke-width="1.2" stroke-dasharray="6,4" opacity="0.2"/>
+        <circle cx="1150" cy="260" r="100" fill="none" stroke="#C6A45C" stroke-width="1" opacity="0.3"/>
+        <!-- Botanical Leaf Silhouettes -->
+        <path d="M 1050 480 C 1120 380 1200 320 1340 300 C 1260 400 1180 460 1050 480 Z" fill="#C6A45C" opacity="0.12"/>
+        <path d="M 1150 140 C 1220 200 1280 260 1380 320 C 1320 220 1240 160 1150 140 Z" fill="#477A52" opacity="0.25"/>
+        <path d="M 980 360 C 1040 310 1120 280 1220 300 C 1140 350 1060 380 980 360 Z" fill="#C6A45C" opacity="0.18"/>
+        <!-- Soft glowing dust particles -->
+        <circle cx="950" cy="180" r="3" fill="#FAF7EF" opacity="0.4"/>
+        <circle cx="1080" cy="120" r="4" fill="#C6A45C" opacity="0.5"/>
+        <circle cx="1220" cy="200" r="2.5" fill="#FAF7EF" opacity="0.35"/>
+        <circle cx="1300" cy="150" r="3" fill="#C6A45C" opacity="0.4"/>
+        <circle cx="1020" cy="400" r="2" fill="#FAF7EF" opacity="0.3"/>
+      </svg>

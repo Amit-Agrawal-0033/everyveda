@@ -11,7 +11,7 @@
 <div class="row g-4">
     <div class="col-lg-8">
         <!-- Edit Form -->
-        <form action="<?= url('/admin/products/' . $product['id'] . '/edit') ?>" method="POST" enctype="multipart/form-data">
+        <form id="productEditForm" action="<?= url('/admin/products/' . $product['id'] . '/edit') ?>" method="POST" enctype="multipart/form-data">
             <?= csrf_field() ?>
 
             <!-- Basic SKU & Slug -->
@@ -25,6 +25,67 @@
                     <div class="col-md-6">
                         <label class="form-label small fw-bold">URL Slug *</label>
                         <input type="text" name="slug" class="form-control" value="<?= e($product['slug']) ?>" required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pricing, GST Tax & Inventory -->
+            <div class="card border shadow-sm p-4 bg-white mb-4">
+                <h5 class="fw-bold mb-3">Pricing, GST Tax & Inventory</h5>
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <label class="form-label small fw-bold">Regular Price (MRP ₹) *</label>
+                        <input type="number" step="0.01" name="price" class="form-control" value="<?= e($product['price']) ?>" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label small fw-bold">Sale Price (₹)</label>
+                        <input type="number" step="0.01" name="sale_price" class="form-control" value="<?= e($product['sale_price'] ?? '') ?>" placeholder="Leave blank if no discount">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label small fw-bold">Stock Quantity *</label>
+                        <input type="number" name="stock_quantity" class="form-control" value="<?= e($product['stock_quantity']) ?>" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label small fw-bold">Applicable GST Rate (%) *</label>
+                        <select name="tax_rate" class="form-select">
+                            <option value="5.00" <?= (float)$product['tax_rate'] === 5.0 ? 'selected' : '' ?>>5.00% (Classical Churnas)</option>
+                            <option value="12.00" <?= (float)$product['tax_rate'] === 12.0 ? 'selected' : '' ?>>12.00% (Medicines, Rasayanas, Juices)</option>
+                            <option value="18.00" <?= (float)$product['tax_rate'] === 18.0 ? 'selected' : '' ?>>18.00% (Cosmetics, Hair Oils, Radiance)</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label small fw-bold">HSN Code</label>
+                        <input type="text" name="hsn_code" class="form-control" value="<?= e($product['hsn_code'] ?? '30049011') ?>" placeholder="30049011">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label small fw-bold">Shipping Weight (grams)</label>
+                        <input type="number" name="weight_grams" class="form-control" value="<?= e($product['weight_grams'] ?? 250) ?>">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label small fw-bold">Low Stock Warning Threshold</label>
+                        <input type="number" name="low_stock_threshold" class="form-control" value="<?= e($product['low_stock_threshold'] ?? 10) ?>">
+                    </div>
+                    <div class="col-md-6 d-flex align-items-center mt-4">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" name="manage_stock" value="1" id="manageStockCheck" <?= !empty($product['manage_stock']) ? 'checked' : '' ?>>
+                            <label class="form-check-label fw-bold small" for="manageStockCheck">Track Inventory Quantities</label>
+                        </div>
+                    </div>
+                    <div class="col-12 mt-2 pt-2 border-top">
+                        <div class="d-flex flex-wrap gap-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="is_featured" value="1" id="featCheck" <?= !empty($product['is_featured']) ? 'checked' : '' ?>>
+                                <label class="form-check-label small fw-bold" for="featCheck">Featured on Homepage</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="is_best_seller" value="1" id="bestCheck" <?= !empty($product['is_best_seller']) ? 'checked' : '' ?>>
+                                <label class="form-check-label small fw-bold" for="bestCheck">Best Seller Badge</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="is_new_arrival" value="1" id="newCheck" <?= !empty($product['is_new_arrival']) ? 'checked' : '' ?>>
+                                <label class="form-check-label small fw-bold" for="newCheck">New Arrival Badge</label>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

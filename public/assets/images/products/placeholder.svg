@@ -1,6 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
-  <rect width="400" height="400" fill="#FAF7EF"/>
-  <circle cx="200" cy="200" r="90" fill="#e8e2d1"/>
-  <path d="M 200 130 C 240 150 250 210 200 270 C 150 210 160 150 200 130 Z" fill="#214D36" opacity="0.8"/>
-  <text x="200" y="320" font-family="Inter, sans-serif" font-size="16" font-weight="700" fill="#214D36" text-anchor="middle">EveryVeda Botanical</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">
+  <rect width="500" height="500" fill="#ffffff"/>
+  <ellipse cx="250" cy="430" rx="140" ry="20" fill="#e8ebe8" opacity="0.7"/>
+  <circle cx="250" cy="240" r="100" fill="#f4f7f4" stroke="#d5dfd7" stroke-width="2"/>
+  <path d="M 250 160 C 290 180 300 250 250 310 C 200 250 210 180 250 160 Z" fill="#214D36" opacity="0.85"/>
+  <circle cx="250" cy="235" r="8" fill="#C6A45C"/>
+  <text x="250" y="380" font-family="Inter, sans-serif" font-size="16" font-weight="700" fill="#214D36" text-anchor="middle">EveryVeda Botanical</text>
+  <text x="250" y="405" font-family="Inter, sans-serif" font-size="12" font-weight="500" fill="#6c757d" text-anchor="middle">Authentic Classical Formulation</text>
 </svg>

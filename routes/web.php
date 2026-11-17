@@ -47,6 +47,8 @@ Router::get('/return-refund-policy', fn($req) => (new App\Controllers\PageContro
 Router::get('/privacy-policy', fn($req) => (new App\Controllers\PageController())->show($req, 'privacy-policy'));
 Router::get('/terms-conditions', fn($req) => (new App\Controllers\PageController())->show($req, 'terms-conditions'));
 Router::get('/medical-disclaimer', fn($req) => (new App\Controllers\PageController())->show($req, 'medical-disclaimer'));
+Router::get('/pricing', [App\Controllers\PageController::class, 'pricing']);
+Router::get('/sample-invoice', [App\Controllers\PageController::class, 'sampleInvoice']);
 
 // Contact & Newsletter
 Router::get('/contact-us', [App\Controllers\PageController::class, 'contact']);

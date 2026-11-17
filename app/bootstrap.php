@@ -73,6 +73,14 @@ if (session_status() === PHP_SESSION_NONE) {
     
     $secureCookie = filter_var(env('SESSION_SECURE_COOKIE', $isHttps), FILTER_VALIDATE_BOOLEAN);
 
+    $sessionDir = STORAGE_PATH . '/sessions';
+    if (!is_dir($sessionDir)) {
+        @mkdir($sessionDir, 0755, true);
+    }
+    if (is_dir($sessionDir) && is_writable($sessionDir)) {
+        session_save_path($sessionDir);
+    }
+
     ini_set('session.cookie_lifetime', (string)$sessionLifetime);
     ini_set('session.gc_maxlifetime', (string)$sessionLifetime);
     ini_set('session.use_only_cookies', '1');

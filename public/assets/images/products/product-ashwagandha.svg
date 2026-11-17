@@ -1,18 +1,54 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">
       <defs>
-        <linearGradient id="g_1f4be22b4aeb77b4e5e9d1e2be32fd40" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="#3D5A45"/>
-          <stop offset="100%" stop-color="#142e20"/>
+        <linearGradient id="grad_7c731c77e6a2b80e31fada01a3beecb6" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#273d2d"/>
+          <stop offset="60%" stop-color="#42614a"/>
+          <stop offset="100%" stop-color="#122419"/>
+        </linearGradient>
+        <linearGradient id="gold_7c731c77e6a2b80e31fada01a3beecb6" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#9A7B39"/>
+          <stop offset="35%" stop-color="#E5CA85"/>
+          <stop offset="70%" stop-color="#C6A45C"/>
+          <stop offset="100%" stop-color="#806226"/>
+        </linearGradient>
+        <linearGradient id="lid_7c731c77e6a2b80e31fada01a3beecb6" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#1c2b20"/>
+          <stop offset="50%" stop-color="#2d4233"/>
+          <stop offset="100%" stop-color="#16221a"/>
         </linearGradient>
       </defs>
-      <rect width="400" height="400" fill="#FAF7EF"/>
-      <ellipse cx="200" cy="340" rx="90" ry="16" fill="#e0dacb"/>
-      <rect x="130" y="140" width="140" height="180" rx="16" fill="url(#g_1f4be22b4aeb77b4e5e9d1e2be32fd40)"/>
-           <rect x="145" y="115" width="110" height="25" rx="6" fill="#C6A45C"/>
-           <rect x="140" y="180" width="120" height="100" rx="6" fill="#FAF7EF" stroke="#C6A45C" stroke-width="1.5"/>
-      <text x="200" y="215" font-family="Inter, sans-serif" font-size="10" font-weight="800" fill="#214D36" text-anchor="middle" letter-spacing="1">EVERYVEDA</text>
-      <text x="200" y="235" font-family="Inter, sans-serif" font-size="9" font-weight="700" fill="#26332B" text-anchor="middle">Ashwagandha Vitality Caps</text>
-      <circle cx="200" cy="255" r="8" fill="#C6A45C" opacity="0.3"/>
-      <text x="200" y="258" font-family="sans-serif" font-size="9" font-weight="bold" fill="#214D36" text-anchor="middle">🌿</text>
-      <text x="200" y="272" font-family="Inter, sans-serif" font-size="7" font-weight="600" fill="#477A52" text-anchor="middle">100% PURE HERBAL</text>
+      <!-- Pure Crisp White E-Commerce Studio Background -->
+      <rect width="500" height="500" fill="#ffffff"/>
+      
+      <ellipse cx="250" cy="435" rx="150" ry="18" fill="#d8dfd9" opacity="0.5"/>
+      <ellipse cx="250" cy="433" rx="110" ry="12" fill="#b9c5bc" opacity="0.6"/>
+      <ellipse cx="250" cy="430" rx="80" ry="8" fill="#8f9e93" opacity="0.4"/>
+    
+      
+          <!-- Jar Body -->
+          <rect x="155" y="175" width="190" height="235" rx="24" fill="url(#grad_7c731c77e6a2b80e31fada01a3beecb6)"/>
+          <!-- Glass Specular Highlight -->
+          <path d="M 170 185 L 185 185 L 185 395 L 170 395 Z" fill="#ffffff" opacity="0.12"/>
+          <path d="M 195 185 L 200 185 L 200 395 L 195 395 Z" fill="#ffffff" opacity="0.06"/>
+          <!-- Neck & Metallic Lid -->
+          <rect x="180" y="152" width="140" height="26" rx="6" fill="url(#lid_7c731c77e6a2b80e31fada01a3beecb6)"/>
+          <rect x="170" y="125" width="160" height="32" rx="10" fill="url(#gold_7c731c77e6a2b80e31fada01a3beecb6)"/>
+          <line x1="172" y1="138" x2="328" y2="138" stroke="#ffffff" stroke-width="1.5" opacity="0.5"/>
+          <line x1="172" y1="145" x2="328" y2="145" stroke="#9A7B39" stroke-width="1"/>
+          <!-- Product Label -->
+          <rect x="170" y="215" width="160" height="165" rx="12" fill="#FAF7EF" stroke="#C6A45C" stroke-width="2"/>
+          <rect x="176" y="221" width="148" height="153" rx="8" fill="none" stroke="#214D36" stroke-width="0.8" stroke-dasharray="3,2"/>
+          <!-- Label Brand -->
+          <text x="250" y="246" font-family="Inter, sans-serif" font-size="11" font-weight="900" fill="#214D36" text-anchor="middle" letter-spacing="2">EVERYVEDA</text>
+          <text x="250" y="258" font-family="Inter, sans-serif" font-size="7" font-weight="700" fill="#C6A45C" text-anchor="middle" letter-spacing="1.5">CLASSICAL AYURVEDA</text>
+          <line x1="200" y1="264" x2="300" y2="264" stroke="#C6A45C" stroke-width="1"/>
+          <!-- Title & Net Qty -->
+          <text x="250" y="286" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="#26332B" text-anchor="middle">Ashwagandha Caps</text>
+          <text x="250" y="304" font-family="Noto Sans Devanagari, sans-serif" font-size="11" font-weight="700" fill="#477A52" text-anchor="middle">अश्वगंधा कैप्सूल</text>
+          <circle cx="250" cy="330" r="14" fill="#C6A45C" opacity="0.15"/>
+          <text x="250" y="336" font-size="15" text-anchor="middle">🌱</text>
+          <!-- Badge -->
+          <rect x="205" y="352" width="90" height="18" rx="9" fill="#214D36"/>
+          <text x="250" y="364" font-family="Inter, sans-serif" font-size="8.5" font-weight="800" fill="#FAF7EF" text-anchor="middle">NET WT. 60 Caps</text>
+        
     </svg>

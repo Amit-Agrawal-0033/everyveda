@@ -15,6 +15,6 @@
   <path d="M 28 12 C 18 18 14 32 26 46 C 32 38 36 28 28 12 Z" fill="url(#goldGrad)" opacity="0.85"/>
   <circle cx="28" cy="28" r="4" fill="#FAF7EF"/>
   <!-- Typography -->
-  <text x="62" y="34" font-family="Inter, Segoe UI, sans-serif" font-size="24" font-weight="800" fill="#214D36" letter-spacing="-0.5">Every<tspan fill="#C6A45C">Veda</tspan></text>
-  <text x="63" y="48" font-family="Inter, Segoe UI, sans-serif" font-size="7.5" font-weight="700" fill="#477A52" letter-spacing="1.5">PURE AYURVEDIC LIVING</text>
+  <text x="62" y="34" font-family="Inter, -apple-system, Segoe UI, sans-serif" font-size="24" font-weight="800" fill="#214D36" letter-spacing="-0.5">Every<tspan fill="#C6A45C">Veda</tspan></text>
+  <text x="63" y="48" font-family="Inter, -apple-system, Segoe UI, sans-serif" font-size="7.5" font-weight="700" fill="#477A52" letter-spacing="1.5">PURE AYURVEDIC LIVING</text>
 </svg>

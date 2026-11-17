@@ -26,11 +26,27 @@ class InvoiceService
         $settingsRows = Database::fetchAll("SELECT `key`, `value` FROM settings");
         $settings = array_column($settingsRows, 'value', 'key');
 
-        $taxBreakdown = TaxService::calculateTax(
-            (float)$order['subtotal'] - (float)$order['discount_amount'],
-            $order['shipping_state'],
-            12.00
-        );
+        $isIntrastate = strcasecmp(trim((string)$order['shipping_state']), PricingEngine::SELLER_STATE) === 0;
+        $pricesIncludeTax = !empty($order['prices_include_tax']);
+
+        // Sum up granular tax breakdown from order items or fallback to stored order values
+        $cgstTotal = (float)($order['cgst_amount'] ?? 0);
+        $sgstTotal = (float)($order['sgst_amount'] ?? 0);
+        $igstTotal = (float)($order['igst_amount'] ?? 0);
+        $taxableTotal = (float)($order['taxable_amount'] ?? 0);
+
+        if ($cgstTotal == 0 && $sgstTotal == 0 && $igstTotal == 0) {
+            // Fallback calculation for older legacy orders
+            $taxBreakdown = TaxService::calculateTax(
+                (float)$order['subtotal'] - (float)$order['discount_amount'],
+                (string)$order['shipping_state'],
+                12.00
+            );
+            $cgstTotal = $taxBreakdown['cgst_amount'];
+            $sgstTotal = $taxBreakdown['sgst_amount'];
+            $igstTotal = $taxBreakdown['igst_amount'];
+            $taxableTotal = $taxBreakdown['base_amount'];
+        }
 
         ob_start();
         ?>
@@ -122,11 +138,12 @@ class InvoiceService
                         <tr>
                             <th>#</th>
                             <th>Description of Ayurvedic Goods</th>
+                            <th>HSN</th>
                             <th>SKU</th>
                             <th class="text-center">Qty</th>
                             <th class="text-right">Unit Price</th>
                             <th class="text-right">GST %</th>
-                            <th class="text-right">Total Amount</th>
+                            <th class="text-right">Total (₹)</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -139,6 +156,7 @@ class InvoiceService
                                         <br><small style="color: #666;"><?= e($item['variant_name_en']) ?></small>
                                     <?php endif; ?>
                                 </td>
+                                <td><code><?= e($item['hsn_code'] ?? '30049011') ?></code></td>
                                 <td><code><?= e($item['sku']) ?></code></td>
                                 <td class="text-center"><?= $item['quantity'] ?></td>
                                 <td class="text-right">₹<?= number_format((float)$item['unit_price'], 2) ?></td>
@@ -151,7 +169,7 @@ class InvoiceService
 
                 <table class="totals-table">
                     <tr>
-                        <td>Subtotal:</td>
+                        <td>Subtotal (<?= $pricesIncludeTax ? 'MRP Incl. GST' : 'Excl. Tax' ?>):</td>
                         <td class="text-right">₹<?= number_format((float)$order['subtotal'], 2) ?></td>
                     </tr>
                     <?php if ((float)$order['discount_amount'] > 0): ?>
@@ -164,26 +182,54 @@ class InvoiceService
                         <td>Shipping Charges:</td>
                         <td class="text-right"><?= (float)$order['shipping_fee'] == 0 ? 'FREE' : '₹' . number_format((float)$order['shipping_fee'], 2) ?></td>
                     </tr>
-                    <?php if ($taxBreakdown['type'] === 'intrastate'): ?>
-                        <tr>
-                            <td>CGST (<?= $taxBreakdown['cgst_rate'] ?>%):</td>
-                            <td class="text-right">₹<?= number_format($taxBreakdown['cgst_amount'], 2) ?></td>
-                        </tr>
-                        <tr>
-                            <td>SGST (<?= $taxBreakdown['sgst_rate'] ?>%):</td>
-                            <td class="text-right">₹<?= number_format($taxBreakdown['sgst_amount'], 2) ?></td>
-                        </tr>
-                    <?php else: ?>
-                        <tr>
-                            <td>IGST (<?= $taxBreakdown['igst_rate'] ?>%):</td>
-                            <td class="text-right">₹<?= number_format($taxBreakdown['igst_amount'], 2) ?></td>
-                        </tr>
+                    <?php if (!$pricesIncludeTax): ?>
+                        <?php if ($isIntrastate): ?>
+                            <tr>
+                                <td>CGST:</td>
+                                <td class="text-right">₹<?= number_format($cgstTotal, 2) ?></td>
+                            </tr>
+                            <tr>
+                                <td>SGST:</td>
+                                <td class="text-right">₹<?= number_format($sgstTotal, 2) ?></td>
+                            </tr>
+                        <?php else: ?>
+                            <tr>
+                                <td>IGST:</td>
+                                <td class="text-right">₹<?= number_format($igstTotal, 2) ?></td>
+                            </tr>
+                        <?php endif; ?>
                     <?php endif; ?>
                     <tr class="grand-total">
                         <td>Grand Total:</td>
                         <td class="text-right">₹<?= number_format((float)$order['total_amount'], 2) ?></td>
                     </tr>
                 </table>
+
+                <div style="margin-top: 25px; padding: 15px; background: #fdfcf9; border: 1px solid #e8e2d1; border-radius: 4px; font-size: 11px;">
+                    <strong style="color: #214D36; font-size: 12px; display: block; margin-bottom: 6px;">GST Breakdown Summary (<?= $pricesIncludeTax ? 'Included in MRP' : 'Added to Base' ?>):</strong>
+                    <table style="width: 100%; border-collapse: collapse; font-size: 11px;">
+                        <tr style="border-bottom: 1px solid #ddd; text-align: left; color: #555;">
+                            <th style="padding: 4px 6px;">Taxable Base Value</th>
+                            <?php if ($isIntrastate): ?>
+                                <th style="padding: 4px 6px;">Central Tax (CGST)</th>
+                                <th style="padding: 4px 6px;">State Tax (SGST)</th>
+                            <?php else: ?>
+                                <th style="padding: 4px 6px;">Integrated Tax (IGST)</th>
+                            <?php endif; ?>
+                            <th style="padding: 4px 6px; text-align: right;">Total GST</th>
+                        </tr>
+                        <tr>
+                            <td style="padding: 6px;">₹<?= number_format($taxableTotal, 2) ?></td>
+                            <?php if ($isIntrastate): ?>
+                                <td style="padding: 6px;">₹<?= number_format($cgstTotal, 2) ?></td>
+                                <td style="padding: 6px;">₹<?= number_format($sgstTotal, 2) ?></td>
+                            <?php else: ?>
+                                <td style="padding: 6px;">₹<?= number_format($igstTotal, 2) ?></td>
+                            <?php endif; ?>
+                            <td style="padding: 6px; text-align: right; font-weight: bold; color: #214D36;">₹<?= number_format($cgstTotal + $sgstTotal + $igstTotal, 2) ?></td>
+                        </tr>
+                    </table>
+                </div>
 
                 <div style="margin-top: 40px; padding-top: 15px; border-top: 1px solid #eee; font-size: 11px; color: #777;">
                     <p><strong>Declaration:</strong> This is a computer generated invoice and does not require a physical signature. Goods once sold are covered under our 7-day replacement policy for manufacturing transit defects.</p>

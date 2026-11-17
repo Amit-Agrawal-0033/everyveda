@@ -173,7 +173,7 @@ class CartService
     /**
      * Get complete validated cart details with fresh database prices, discounts, shipping, tax
      */
-    public static function getCartDetails(): array
+    public static function getCartDetails(?string $shippingState = null): array
     {
         $cartId = self::getCartId();
         $locale = current_locale();
@@ -190,6 +190,7 @@ class CartService
                 p.stock_quantity AS product_stock,
                 p.manage_stock,
                 p.tax_rate,
+                p.hsn_code,
                 p.weight_grams,
                 p.primary_image,
                 COALESCE(pt.name, p.slug) AS product_name,
@@ -209,8 +210,6 @@ class CartService
         );
 
         $items = [];
-        $subtotal = 0.0;
-        $totalWeight = 0;
 
         foreach ($rows as $r) {
             // Determine price snapshot: variant sale price > variant price > product sale price > product price
@@ -227,9 +226,6 @@ class CartService
             }
 
             $qty = (int)$r['quantity'];
-            $lineTotal = round($unitPrice * $qty, 2);
-            $subtotal += $lineTotal;
-            $totalWeight += ((int)$r['weight_grams']) * $qty;
 
             $items[] = [
                 'item_id' => (int)$r['item_id'],
@@ -242,56 +238,27 @@ class CartService
                 'image' => $r['primary_image'] ?: 'placeholder.svg',
                 'unit_price' => $unitPrice,
                 'quantity' => $qty,
-                'line_total' => $lineTotal,
-                'tax_rate' => (float)$r['tax_rate'],
+                'tax_rate' => isset($r['tax_rate']) ? (float)$r['tax_rate'] : 12.00,
+                'hsn_code' => $r['hsn_code'] ?? '30049011',
+                'weight_grams' => (int)$r['weight_grams'],
                 'stock' => $r['variant_id'] ? (int)$r['variant_stock'] : (int)$r['product_stock']
             ];
         }
 
-        // Apply Coupon Discount
-        $discountAmount = 0.0;
         $couponCode = $_SESSION['applied_coupon'] ?? null;
-        $couponData = null;
+        $userId = auth_user()['id'] ?? null;
 
-        if ($couponCode) {
-            $couponResult = CouponService::validateCoupon($couponCode, $subtotal, auth_user()['id'] ?? null);
-            if ($couponResult['valid']) {
-                $discountAmount = $couponResult['discount'];
-                $couponData = $couponResult['coupon'];
-            } else {
-                unset($_SESSION['applied_coupon']); // Invalidate if cart changes make it invalid
-            }
+        $pricing = PricingEngine::calculate($items, $couponCode, $shippingState, $userId);
+
+        if ($couponCode && empty($pricing['coupon_code'])) {
+            unset($_SESSION['applied_coupon']);
         }
 
-        $taxableAmount = max(0, $subtotal - $discountAmount);
+        // Add legacy alias keys for backwards compatibility with existing views
+        $pricing['line_total'] = $pricing['subtotal'];
+        $pricing['tax_rate'] = !empty($items) ? round(array_sum(array_column($items, 'tax_rate')) / count($items), 1) : 12.0;
 
-        // Shipping Calculation
-        $shippingThreshold = (float)env('SHIPPING_FREE_THRESHOLD', 499.00);
-        $standardShippingFee = (float)env('SHIPPING_STANDARD_FEE', 50.00);
-
-        $shippingFee = ($subtotal >= $shippingThreshold || count($items) === 0) ? 0.00 : $standardShippingFee;
-
-        // In India Ayurvedic consumer products, MRP is tax-inclusive. We compute the tax breakdown (GST 12%)
-        $taxRate = (float)env('GST_TAX_RATE', 12.00);
-        // Tax = TaxableAmount - (TaxableAmount / (1 + TaxRate/100))
-        $taxAmount = round($taxableAmount - ($taxableAmount / (1 + ($taxRate / 100))), 2);
-
-        $finalTotal = round($taxableAmount + $shippingFee, 2);
-
-        return [
-            'items' => $items,
-            'count' => array_sum(array_column($items, 'quantity')),
-            'subtotal' => round($subtotal, 2),
-            'discount' => round($discountAmount, 2),
-            'coupon_code' => $couponCode,
-            'coupon' => $couponData,
-            'shipping_fee' => $shippingFee,
-            'shipping_threshold' => $shippingThreshold,
-            'free_shipping_remaining' => max(0, round($shippingThreshold - $subtotal, 2)),
-            'tax_amount' => $taxAmount,
-            'tax_rate' => $taxRate,
-            'total' => $finalTotal
-        ];
+        return $pricing;
     }
 
     /**

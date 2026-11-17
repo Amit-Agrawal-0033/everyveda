@@ -52,6 +52,34 @@ class PageController extends Controller
     }
 
     /**
+     * Transparent Pricing, GST & Payment Policy (Razorpay Onboarding Requirement)
+     */
+    public function pricing(Request $request): void
+    {
+        $settings = Database::fetchAll("SELECT `key`, `value` FROM settings");
+        $config = [];
+        foreach ($settings as $s) {
+            $config[$s['key']] = $s['value'];
+        }
+
+        $this->view('pages/pricing', [
+            'meta_title' => 'Transparent Pricing & GST Policy — EveryVeda',
+            'meta_description' => 'Learn how EveryVeda prices products with complete GST transparency, zero hidden charges, and clear shipping thresholds.',
+            'config' => $config
+        ]);
+    }
+
+    /**
+     * Sample GST Invoice Preview (Required for Merchant Onboarding & Tax Transparency)
+     */
+    public function sampleInvoice(Request $request): void
+    {
+        $this->view('pages/sample-invoice', [
+            'meta_title' => 'Sample Tax Invoice (GST Format) — EveryVeda'
+        ]);
+    }
+
+    /**
      * Submit Contact Form
      */
     public function submitContact(Request $request): void

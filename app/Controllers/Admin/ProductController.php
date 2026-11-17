@@ -277,6 +277,7 @@ class ProductController extends Controller
             'low_stock_threshold' => (int)$request->post('low_stock_threshold', 5),
             'manage_stock' => !empty($request->post('manage_stock')) ? 1 : 0,
             'tax_rate' => (float)$request->post('tax_rate', 12.00),
+            'hsn_code' => trim((string)$request->post('hsn_code', '30049011')),
             'weight_grams' => (int)$request->post('weight_grams', 250),
             'is_featured' => !empty($request->post('is_featured')) ? 1 : 0,
             'is_best_seller' => !empty($request->post('is_best_seller')) ? 1 : 0,

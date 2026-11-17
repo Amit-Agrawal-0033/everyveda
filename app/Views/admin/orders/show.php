@@ -22,9 +22,10 @@
                     <thead class="table-light">
                         <tr>
                             <th>Item Details</th>
-                            <th>SKU</th>
+                            <th>SKU / HSN</th>
                             <th class="text-center">Qty</th>
                             <th class="text-end">Unit Price</th>
+                            <th class="text-end">Taxable Base</th>
                             <th class="text-end">GST %</th>
                             <th class="text-end">Total Price</th>
                         </tr>
@@ -38,35 +39,50 @@
                                         <small class="d-block text-muted"><?= e($item['variant_name_en']) ?></small>
                                     <?php endif; ?>
                                 </td>
-                                <td><code><?= e($item['sku']) ?></code></td>
+                                <td>
+                                    <code><?= e($item['sku']) ?></code><br>
+                                    <small class="text-muted">HSN: <?= e($item['hsn_code'] ?? '30049011') ?></small>
+                                </td>
                                 <td class="text-center"><?= $item['quantity'] ?></td>
                                 <td class="text-end"><?= format_inr($item['unit_price']) ?></td>
-                                <td class="text-end"><?= $item['tax_rate'] ?>%</td>
+                                <td class="text-end"><?= format_inr($item['taxable_amount'] ?? ($item['total_price'] / (1 + ($item['tax_rate']/100)))) ?></td>
+                                <td class="text-end">
+                                    <span class="badge bg-light text-dark border"><?= $item['tax_rate'] ?>%</span>
+                                </td>
                                 <td class="text-end fw-bold"><?= format_inr($item['total_price']) ?></td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
                     <tfoot class="border-top">
                         <tr>
-                            <td colspan="5" class="text-end">Subtotal:</td>
+                            <td colspan="6" class="text-end">Subtotal (MRP Incl. GST):</td>
                             <td class="text-end fw-bold"><?= format_inr($order['subtotal']) ?></td>
                         </tr>
                         <?php if ((float)$order['discount_amount'] > 0): ?>
                             <tr class="text-success">
-                                <td colspan="5" class="text-end">Coupon Discount (<?= e($order['coupon_code']) ?>):</td>
+                                <td colspan="6" class="text-end">Coupon Discount (<?= e($order['coupon_code']) ?>):</td>
                                 <td class="text-end">-<?= format_inr($order['discount_amount']) ?></td>
                             </tr>
                         <?php endif; ?>
                         <tr>
-                            <td colspan="5" class="text-end">Shipping Fee:</td>
+                            <td colspan="6" class="text-end">Shipping Fee:</td>
                             <td class="text-end"><?= (float)$order['shipping_fee'] == 0 ? 'FREE' : format_inr($order['shipping_fee']) ?></td>
                         </tr>
                         <tr>
-                            <td colspan="5" class="text-end">Tax Breakdown (GST Included):</td>
-                            <td class="text-end text-muted"><?= format_inr($order['tax_amount']) ?></td>
+                            <td colspan="6" class="text-end">
+                                Tax Breakdown:
+                                <?php if (!empty($order['cgst_amount']) && (float)$order['cgst_amount'] > 0): ?>
+                                    <small class="text-muted d-block">Intrastate CGST (<?= format_inr($order['cgst_amount']) ?>) + SGST (<?= format_inr($order['sgst_amount']) ?>)</small>
+                                <?php elseif (!empty($order['igst_amount']) && (float)$order['igst_amount'] > 0): ?>
+                                    <small class="text-muted d-block">Interstate IGST (<?= format_inr($order['igst_amount']) ?>)</small>
+                                <?php else: ?>
+                                    <small class="text-muted d-block">Total GST Included in MRP</small>
+                                <?php endif; ?>
+                            </td>
+                            <td class="text-end text-muted fw-semibold"><?= format_inr($order['tax_amount']) ?></td>
                         </tr>
                         <tr class="fs-5 text-success">
-                            <td colspan="5" class="text-end fw-bold">Grand Total:</td>
+                            <td colspan="6" class="text-end fw-bold">Grand Total:</td>
                             <td class="text-end fw-bold"><?= format_inr($order['total_amount']) ?></td>
                         </tr>
                     </tfoot>

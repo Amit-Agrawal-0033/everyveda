@@ -32,15 +32,15 @@ INSERT INTO `categories` (`id`, `parent_id`, `slug`, `name_en`, `name_hi`, `desc
 (6, NULL, 'digestive-wellness', 'Digestive Wellness', 'पाचन एवं उदर स्वास्थ्य', 'Time-tested herbal carminatives and digestive powders for optimum Agni balance and gentle natural cleansing.', 'पेट की गैस, अपच और कब्ज से राहत देने वाले पारंपरिक पाचक चूर्ण और जड़ी-बूटियाँ।', 'cat-digestive.svg', 6, 1, 1);
 
 -- 5. Products
-INSERT INTO `products` (`id`, `category_id`, `sku`, `slug`, `price`, `sale_price`, `stock_quantity`, `low_stock_threshold`, `manage_stock`, `tax_rate`, `weight_grams`, `is_featured`, `is_best_seller`, `is_new_arrival`, `status`, `primary_image`) VALUES
-(1, 1, 'EV-CHY-001', 'everyveda-royal-chyawanprash-gold', 599.00, 499.00, 150, 10, 1, 12.00, 500, 1, 1, 0, 'published', 'product-chyawanprash.svg'),
-(2, 2, 'EV-SHL-001', 'everyveda-pure-himalayan-shilajit-resin', 1299.00, 999.00, 85, 10, 1, 12.00, 20, 1, 1, 0, 'published', 'product-shilajit.svg'),
-(3, 3, 'EV-AML-001', 'organic-wild-amla-juice', 349.00, 280.00, 200, 15, 1, 12.00, 1000, 1, 0, 1, 'published', 'product-amla-juice.svg'),
-(4, 4, 'EV-OIL-001', 'maha-narayan-joint-relief-oil', 499.00, 399.00, 120, 10, 1, 12.00, 200, 1, 1, 0, 'published', 'product-pain-oil.svg'),
-(5, 5, 'EV-BHR-001', 'bhringraj-brahmi-herbal-hair-oil', 449.00, 360.00, 95, 10, 1, 12.00, 200, 1, 1, 0, 'published', 'product-hair-oil.svg'),
-(6, 6, 'EV-TRP-001', 'triphala-churna-digestive-cleanse', 249.00, 199.00, 180, 20, 1, 12.00, 250, 1, 0, 0, 'published', 'product-triphala.svg'),
-(7, 2, 'EV-ASH-001', 'ashwagandha-ksheerpak-vitality-capsules', 699.00, 549.00, 110, 12, 1, 12.00, 100, 0, 1, 1, 'published', 'product-ashwagandha.svg'),
-(8, 5, 'EV-KUM-001', 'pure-kumkumadi-radiance-tailam', 899.00, 749.00, 70, 8, 1, 12.00, 30, 1, 0, 1, 'published', 'product-kumkumadi.svg');
+INSERT INTO `products` (`id`, `category_id`, `sku`, `slug`, `price`, `sale_price`, `stock_quantity`, `low_stock_threshold`, `manage_stock`, `tax_rate`, `hsn_code`, `weight_grams`, `is_featured`, `is_best_seller`, `is_new_arrival`, `status`, `primary_image`) VALUES
+(1, 1, 'EV-CHY-001', 'everyveda-royal-chyawanprash-gold', 599.00, 499.00, 150, 10, 1, 12.00, '30049011', 500, 1, 1, 0, 'published', 'product-chyawanprash.svg'),
+(2, 2, 'EV-SHL-001', 'everyveda-pure-himalayan-shilajit-resin', 1299.00, 999.00, 85, 10, 1, 12.00, '30049011', 20, 1, 1, 0, 'published', 'product-shilajit.svg'),
+(3, 3, 'EV-AML-001', 'wild-harvested-forest-amla-juice', 349.00, 280.00, 200, 15, 1, 12.00, '20098990', 1000, 1, 0, 1, 'published', 'product-amla-juice.svg'),
+(4, 4, 'EV-OIL-001', 'maha-narayan-joint-relief-oil', 499.00, 399.00, 120, 10, 1, 12.00, '30049011', 200, 1, 1, 0, 'published', 'product-pain-oil.svg'),
+(5, 5, 'EV-BHR-001', 'bhringraj-brahmi-herbal-hair-oil', 449.00, 360.00, 95, 10, 1, 18.00, '33059010', 200, 1, 1, 0, 'published', 'product-hair-oil.svg'),
+(6, 6, 'EV-TRP-001', 'triphala-churna-digestive-cleanse', 249.00, 199.00, 180, 20, 1, 5.00, '12119029', 250, 1, 0, 0, 'published', 'product-triphala.svg'),
+(7, 2, 'EV-ASH-001', 'ashwagandha-ksheerpak-vitality-capsules', 699.00, 549.00, 110, 12, 1, 12.00, '30049011', 100, 0, 1, 1, 'published', 'product-ashwagandha.svg'),
+(8, 5, 'EV-KUM-001', 'pure-kumkumadi-radiance-tailam', 899.00, 749.00, 70, 8, 1, 18.00, '33049990', 30, 1, 0, 1, 'published', 'product-kumkumadi.svg');
 
 -- 6. Product Translations
 INSERT INTO `product_translations` (`product_id`, `locale`, `name`, `short_description`, `description`, `ingredients`, `directions`, `storage_info`, `warnings`, `meta_title`, `meta_description`) VALUES
@@ -215,6 +215,17 @@ INSERT INTO `product_variants` (`id`, `product_id`, `sku`, `variant_name_en`, `v
 (7, 4, 'EV-OIL-200ML', '200ml Bottle', '200 मिली बोतल', 499.00, 399.00, 80, 200, 1, 1),
 (8, 4, 'EV-OIL-400ML', 'Pack of 2 (400ml)', '2 का पैक (400 मिली)', 950.00, 720.00, 40, 400, 0, 1);
 
+-- 7b. Product Secondary Gallery Images
+INSERT INTO `product_images` (`product_id`, `image_path`, `alt_text_en`, `alt_text_hi`, `sort_order`, `is_primary`) VALUES
+(1, 'product-chyawanprash-back.svg', 'Product Specifications & Directions Back View', 'उत्पाद घटक एवं उपयोग विधि पृष्ठ भाग', 2, 0),
+(2, 'product-shilajit-back.svg', 'Product Specifications & Directions Back View', 'उत्पाद घटक एवं उपयोग विधि पृष्ठ भाग', 2, 0),
+(3, 'product-amla-juice-back.svg', 'Product Specifications & Directions Back View', 'उत्पाद घटक एवं उपयोग विधि पृष्ठ भाग', 2, 0),
+(4, 'product-pain-oil-back.svg', 'Product Specifications & Directions Back View', 'उत्पाद घटक एवं उपयोग विधि पृष्ठ भाग', 2, 0),
+(5, 'product-hair-oil-back.svg', 'Product Specifications & Directions Back View', 'उत्पाद घटक एवं उपयोग विधि पृष्ठ भाग', 2, 0),
+(6, 'product-triphala-back.svg', 'Product Specifications & Directions Back View', 'उत्पाद घटक एवं उपयोग विधि पृष्ठ भाग', 2, 0),
+(7, 'product-ashwagandha-back.svg', 'Product Specifications & Directions Back View', 'उत्पाद घटक एवं उपयोग विधि पृष्ठ भाग', 2, 0),
+(8, 'product-kumkumadi-back.svg', 'Product Specifications & Directions Back View', 'उत्पाद घटक एवं उपयोग विधि पृष्ठ भाग', 2, 0);
+
 -- 8. Coupons
 INSERT INTO `coupons` (`id`, `code`, `discount_type`, `discount_value`, `min_order_amount`, `max_discount_amount`, `usage_limit_global`, `usage_limit_per_user`, `used_count`, `start_date`, `end_date`, `is_active`) VALUES
 (1, 'VEDA10', 'percentage', 10.00, 499.00, 200.00, 1000, 2, 0, '2026-01-01 00:00:00', '2027-12-31 23:59:59', 1),
@@ -367,6 +378,7 @@ INSERT INTO `settings` (`key`, `value`, `group_name`, `description`) VALUES
 ('tax_cgst_rate', '6.0', 'tax', 'Central GST percentage'),
 ('tax_sgst_rate', '6.0', 'tax', 'State GST percentage'),
 ('tax_igst_rate', '12.0', 'tax', 'Interstate GST percentage'),
+('prices_include_tax', '1', 'tax', 'Whether product prices include GST (1 for Inclusive, 0 for Exclusive)'),
 ('shipping_fee_standard', '50.00', 'shipping', 'Standard Flat Delivery Charge'),
 ('shipping_free_threshold', '499.00', 'shipping', 'Minimum cart value for Free Shipping'),
 ('enable_cod', '1', 'payment', 'Enable Cash on Delivery (1 for Yes, 0 for No)'),

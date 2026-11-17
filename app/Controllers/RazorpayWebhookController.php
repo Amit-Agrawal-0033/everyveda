@@ -123,6 +123,57 @@ class RazorpayWebhookController extends Controller
                         ], "razorpay_order_id = :roid", ['roid' => $rzpOrderId]);
                     }
                     break;
+
+                case 'order.paid':
+                    $orderEntity = $data['payload']['order']['entity'] ?? [];
+                    $rzpOrderId = $orderEntity['id'] ?? null;
+                    if ($rzpOrderId) {
+                        $payment = Database::fetchOne("SELECT * FROM payments WHERE razorpay_order_id = :roid", ['roid' => $rzpOrderId]);
+                        if ($payment) {
+                            $order = Database::fetchOne("SELECT * FROM orders WHERE id = :id", ['id' => $payment['order_id']]);
+                            if ($order && $order['status'] === 'pending') {
+                                Database::transaction(function () use ($payment, $order) {
+                                    Database::update('payments', ['status' => 'captured', 'updated_at' => date('Y-m-d H:i:s')], "id = :id", ['id' => $payment['id']]);
+                                    Database::update('orders', ['status' => 'confirmed', 'payment_status' => 'captured', 'updated_at' => date('Y-m-d H:i:s')], "id = :id", ['id' => $order['id']]);
+                                    InventoryService::deductStockForOrder((int)$order['id']);
+                                    Database::insert('order_status_history', [
+                                        'order_id' => $order['id'],
+                                        'status' => 'confirmed',
+                                        'comment' => "Order marked paid via Razorpay order.paid event",
+                                        'created_at' => date('Y-m-d H:i:s')
+                                    ]);
+                                });
+                            }
+                        }
+                    }
+                    break;
+
+                case 'refund.processed':
+                    $refundEntity = $data['payload']['refund']['entity'] ?? [];
+                    $rzpPaymentId = $refundEntity['payment_id'] ?? null;
+                    $refundId = $refundEntity['id'] ?? null;
+                    if ($rzpPaymentId) {
+                        $payment = Database::fetchOne("SELECT * FROM payments WHERE razorpay_payment_id = :rpid", ['rpid' => $rzpPaymentId]);
+                        if ($payment) {
+                            Database::transaction(function () use ($payment, $refundId) {
+                                Database::update('payments', [
+                                    'status' => 'refunded',
+                                    'updated_at' => date('Y-m-d H:i:s')
+                                ], "id = :id", ['id' => $payment['id']]);
+                                Database::update('orders', [
+                                    'payment_status' => 'refunded',
+                                    'updated_at' => date('Y-m-d H:i:s')
+                                ], "id = :id", ['id' => $payment['order_id']]);
+                                Database::insert('order_status_history', [
+                                    'order_id' => $payment['order_id'],
+                                    'status' => 'refunded',
+                                    'comment' => "Refund completed via Razorpay Webhook (Refund ID: {$refundId})",
+                                    'created_at' => date('Y-m-d H:i:s')
+                                ]);
+                            });
+                        }
+                    }
+                    break;
             }
 
             // Mark event as processed

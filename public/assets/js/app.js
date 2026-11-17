@@ -121,4 +121,27 @@ document.addEventListener('DOMContentLoaded', function () {
             input.dispatchEvent(new Event('change'));
         });
     });
+
+    // 5. Hero Carousel: Strict Single-Slide Text Display (Zero Overlap Guaranteed)
+    const heroCarousel = document.getElementById('homeHeroCarousel');
+    if (heroCarousel) {
+        heroCarousel.addEventListener('slide.bs.carousel', function (e) {
+            // Outgoing slide elements immediately hidden to prevent cross-fade text ghosting
+            const outgoingSlide = heroCarousel.querySelector('.carousel-item.active');
+            if (outgoingSlide) {
+                outgoingSlide.querySelectorAll('.hero-badge, .hero-title, .hero-subtitle, .hero-actions').forEach(el => {
+                    el.style.opacity = '0';
+                    el.style.visibility = 'hidden';
+                });
+            }
+        });
+
+        heroCarousel.addEventListener('slid.bs.carousel', function (e) {
+            // Clean up inline styles so active CSS classes govern presentation
+            heroCarousel.querySelectorAll('.hero-badge, .hero-title, .hero-subtitle, .hero-actions').forEach(el => {
+                el.style.opacity = '';
+                el.style.visibility = '';
+            });
+        });
+    }
 });

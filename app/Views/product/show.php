@@ -18,15 +18,15 @@
     <div class="row g-4 g-lg-5 mb-5">
         <!-- Product Image Gallery -->
         <div class="col-lg-6">
-            <div class="card border p-4 bg-white rounded-3 shadow-sm text-center mb-3">
-                <img id="productMainImage" src="<?= asset('assets/images/products/' . ($product['primary_image'] ?: 'placeholder.svg')) ?>" alt="<?= e($product['name']) ?>" class="img-fluid mx-auto" style="max-height: 420px; object-fit: contain;">
+            <div class="card border p-4 bg-white rounded-3 shadow-sm text-center mb-3" style="min-height: 420px; display: flex; align-items: center; justify-content: center;">
+                <img id="productMainImage" src="<?= asset('assets/images/products/' . ($product['primary_image'] ?: 'placeholder.svg')) ?>" alt="<?= e($product['name']) ?>" class="img-fluid mx-auto" style="max-height: 380px; width: 100%; object-fit: contain; aspect-ratio: 1/1;" loading="lazy">
             </div>
 
             <?php if (!empty($images)): ?>
                 <div class="d-flex gap-2 justify-content-center">
-                    <img src="<?= asset('assets/images/products/' . ($product['primary_image'] ?: 'placeholder.svg')) ?>" class="img-thumbnail product-thumb-img active-thumb" style="width: 70px; height: 70px; object-fit: cover; cursor: pointer;" data-full-src="<?= asset('assets/images/products/' . ($product['primary_image'] ?: 'placeholder.svg')) ?>" alt="Thumbnail">
+                    <img src="<?= asset('assets/images/products/' . ($product['primary_image'] ?: 'placeholder.svg')) ?>" class="img-thumbnail product-thumb-img active-thumb bg-white" style="width: 72px; height: 72px; object-fit: contain; cursor: pointer;" data-full-src="<?= asset('assets/images/products/' . ($product['primary_image'] ?: 'placeholder.svg')) ?>" alt="Front View" loading="lazy">
                     <?php foreach ($images as $img): ?>
-                        <img src="<?= asset('assets/images/products/' . $img['image_path']) ?>" class="img-thumbnail product-thumb-img" style="width: 70px; height: 70px; object-fit: cover; cursor: pointer;" data-full-src="<?= asset('assets/images/products/' . $img['image_path']) ?>" alt="Thumbnail">
+                        <img src="<?= asset('assets/images/products/' . $img['image_path']) ?>" class="img-thumbnail product-thumb-img bg-white" style="width: 72px; height: 72px; object-fit: contain; cursor: pointer;" data-full-src="<?= asset('assets/images/products/' . $img['image_path']) ?>" alt="<?= e($img['alt_text_en'] ?? 'Secondary View') ?>" loading="lazy">
                     <?php endforeach; ?>
                 </div>
             <?php endif; ?>
@@ -199,6 +199,17 @@
                         </div>
                     <?php endif; ?>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statutory Ayush & FSSAI Disclosure Card -->
+    <div class="alert alert-light border p-3 rounded-3 small text-muted mb-5">
+        <div class="d-flex align-items-start gap-3">
+            <i class="bi bi-shield-check text-success fs-4 flex-shrink-0"></i>
+            <div>
+                <strong class="text-dark d-block mb-1">Authentic Classical Formulation & Statutory Advisory:</strong>
+                This product is prepared strictly according to recognized classical Ayurvedic texts (Charaka Samhita / Sahasrayogam / Ayurvedic Pharmacopoeia of India) with ethically harvested botanicals. The statements made regarding this wellness product have not been evaluated as medical drug substitutes. It is intended for dietary supplementation and daily vitality balance, not for diagnosing, curing, or preventing any chronic pathological disease. If you are pregnant, lactating, taking prescription pharmaceuticals, or have an underlying clinical condition, please consult your healthcare practitioner or Ayurvedic Vaidya prior to use.
             </div>
         </div>
     </div>

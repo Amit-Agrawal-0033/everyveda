@@ -1,19 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 450" width="1200" height="450">
-      <defs>
-        <linearGradient id="bgG" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="#163524"/>
-          <stop offset="50%" stop-color="#214D36"/>
-          <stop offset="100%" stop-color="#366345"/>
-        </linearGradient>
-      </defs>
-      <rect width="1200" height="450" fill="url(#bgG)"/>
-      <circle cx="1050" cy="225" r="280" fill="#477A52" opacity="0.25"/>
-      <circle cx="1100" cy="225" r="180" fill="#C6A45C" opacity="0.15"/>
-      <!-- Leaves Decor -->
-      <path d="M 980 120 C 1040 160 1060 260 990 340 C 940 280 920 200 980 120 Z" fill="#C6A45C" opacity="0.3"/>
-      <text x="80" y="150" font-family="Inter, sans-serif" font-size="16" font-weight="700" fill="#C6A45C" letter-spacing="2">AUTHENTIC AYURVEDIC WELLNESS</text>
-      <text x="80" y="215" font-family="Inter, sans-serif" font-size="38" font-weight="800" fill="#FAF7EF">Himalayan Gold Grade-A Shilajit</text>
-      <text x="80" y="270" font-family="Inter, sans-serif" font-size="18" fill="#e2ddcf">Purified with classical Triphala Shodhana. 80%+ Fulvic Acid.</text>
-      <rect x="80" y="320" width="190" height="50" rx="25" fill="#C6A45C"/>
-      <text x="175" y="352" font-family="Inter, sans-serif" font-size="16" font-weight="700" fill="#214D36" text-anchor="middle">SHOP NOW →</text>
-    </svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 520" width="1400" height="520">
+        <defs>
+          <linearGradient id="shilajitSky" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#141816"/>
+            <stop offset="45%" stop-color="#1d2621"/>
+            <stop offset="100%" stop-color="#121814"/>
+          </linearGradient>
+          <linearGradient id="peakGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#C6A45C" stop-opacity="0.35"/>
+            <stop offset="100%" stop-color="#E5CA85" stop-opacity="0.05"/>
+          </linearGradient>
+        </defs>
+        <rect width="1400" height="520" fill="url(#shilajitSky)"/>
+        <!-- Golden Dawn Glow on Mountain Horizon -->
+        <ellipse cx="1100" cy="220" rx="360" ry="180" fill="url(#peakGlow)"/>
+        <!-- Himalayan Mountain Silhouettes -->
+        <polygon points="750,520 950,260 1150,520" fill="#18241d" opacity="0.7"/>
+        <polygon points="900,520 1120,180 1350,520" fill="#223328" opacity="0.85"/>
+        <polygon points="1080,520 1260,240 1400,480 1400,520" fill="#1b2a21" opacity="0.75"/>
+        <!-- Snowcap Highlights -->
+        <polygon points="1120,180 1085,230 1155,230" fill="#FAF7EF" opacity="0.3"/>
+        <polygon points="950,260 925,295 975,295" fill="#FAF7EF" opacity="0.25"/>
+        <polygon points="1260,240 1238,275 1282,275" fill="#FAF7EF" opacity="0.2"/>
+        <!-- Mineral Gold Vein Aura -->
+        <path d="M 850 480 Q 1020 360 1220 440 T 1400 380" fill="none" stroke="#C6A45C" stroke-width="2" opacity="0.4" stroke-dasharray="8,6"/>
+      </svg>

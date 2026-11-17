@@ -100,4 +100,58 @@ class CartTest
         assert($fixedRes['valid'] === true, "WELCOME100 on 1200 order must be valid");
         assert($fixedRes['discount'] === 100.00, "WELCOME100 discount must be 100.00, got {$fixedRes['discount']}");
     }
+
+    public function testPricingEngineTaxInclusiveMath(): void
+    {
+        // Line item: 1x Ashwagandha Capsules at 549.00 (12% GST)
+        $items = [
+            [
+                'unit_price' => 549.00,
+                'quantity' => 1,
+                'tax_rate' => 12.00,
+                'hsn_code' => '30049011',
+                'weight_grams' => 100
+            ]
+        ];
+
+        // Apply VEDA10 coupon (10% off) for buyer in Uttar Pradesh (Intrastate)
+        $pricing = \App\Services\PricingEngine::calculate($items, 'VEDA10', 'Uttar Pradesh');
+
+        assert($pricing['subtotal'] === 549.00, "Subtotal must be 549.00, got {$pricing['subtotal']}");
+        assert($pricing['discount'] === 54.90, "10% coupon discount must be 54.90, got {$pricing['discount']}");
+        assert($pricing['shipping_fee'] === 0.0, "Subtotal 549.00 >= 499.00 must have free shipping");
+        assert($pricing['total'] === 494.10, "Final total must be 494.10, got {$pricing['total']}");
+
+        // Base taxable: 494.10 / 1.12 = 441.16
+        assert($pricing['taxable_amount'] === 441.16, "Taxable base must be 441.16, got {$pricing['taxable_amount']}");
+        assert($pricing['tax_amount'] === 52.94, "Tax amount must be 52.94, got {$pricing['tax_amount']}");
+
+        // Intrastate CGST & SGST
+        assert($pricing['tax_type'] === 'intrastate', "Destination UP must be intrastate");
+        assert($pricing['cgst_amount'] === 26.47, "CGST must be 26.47, got {$pricing['cgst_amount']}");
+        assert($pricing['sgst_amount'] === 26.47, "SGST must be 26.47, got {$pricing['sgst_amount']}");
+        assert($pricing['igst_amount'] === 0.0, "IGST must be 0.00 for intrastate");
+    }
+
+    public function testPricingEngineInterstateIGST(): void
+    {
+        // Buyer in Karnataka (Interstate)
+        $items = [
+            [
+                'unit_price' => 1000.00,
+                'quantity' => 1,
+                'tax_rate' => 18.00,
+                'hsn_code' => '33049990',
+                'weight_grams' => 50
+            ]
+        ];
+
+        $pricing = \App\Services\PricingEngine::calculate($items, null, 'Karnataka');
+
+        assert($pricing['tax_type'] === 'interstate', "Destination Karnataka must be interstate");
+        assert($pricing['cgst_amount'] === 0.0, "CGST must be 0.00 for interstate");
+        assert($pricing['sgst_amount'] === 0.0, "SGST must be 0.00 for interstate");
+        assert($pricing['igst_amount'] === $pricing['tax_amount'], "IGST must equal full tax amount");
+        assert($pricing['total'] === 1000.00, "Tax inclusive total must remain 1000.00");
+    }
 }

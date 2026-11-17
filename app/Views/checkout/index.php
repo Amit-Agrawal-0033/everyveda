@@ -187,7 +187,7 @@
                 </div>
 
                 <div class="d-flex justify-content-between mb-2">
-                    <span class="text-muted"><?= __('subtotal') ?></span>
+                    <span class="text-muted"><?= !empty($cart['prices_include_tax']) ? 'Subtotal (MRP Incl. Taxes)' : __('subtotal') ?></span>
                     <span class="fw-bold"><?= format_inr($cart['subtotal']) ?></span>
                 </div>
 
@@ -203,17 +203,36 @@
                     <span><?= $cart['shipping_fee'] == 0 ? '<span class="text-success fw-bold">' . __('free_shipping') . '</span>' : format_inr($cart['shipping_fee']) ?></span>
                 </div>
 
-                <div class="d-flex justify-content-between mb-3 text-muted small">
-                    <span>Tax Inclusive (GST <?= $cart['tax_rate'] ?>%)</span>
-                    <span><?= format_inr($cart['tax_amount']) ?></span>
-                </div>
+                <?php if (empty($cart['prices_include_tax'])): ?>
+                    <div class="d-flex justify-content-between mb-2 text-muted small">
+                        <span>Applicable GST</span>
+                        <span class="fw-semibold">+<?= format_inr($cart['tax_amount']) ?></span>
+                    </div>
+                <?php endif; ?>
 
-                <hr>
+                <hr class="my-3">
 
-                <div class="d-flex justify-content-between align-items-baseline mb-4">
+                <div class="d-flex justify-content-between align-items-baseline mb-2">
                     <span class="h5 fw-bold text-dark"><?= __('total') ?></span>
-                    <span class="h3 fw-bold text-success"><?= format_inr($cart['total']) ?></span>
+                    <span class="h3 fw-bold text-success m-0"><?= format_inr($cart['total']) ?></span>
                 </div>
+
+                <?php if (!empty($cart['prices_include_tax'])): ?>
+                    <div class="p-2 bg-light rounded text-muted small mb-3 border">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span><i class="bi bi-info-circle text-success me-1"></i> Includes <?= format_inr($cart['tax_amount']) ?> GST</span>
+                            <span class="badge bg-success-subtle text-success border border-success-subtle" id="gstBadgeType"><?= $cart['tax_type'] === 'intrastate' ? 'CGST + SGST' : 'IGST' ?></span>
+                        </div>
+                        <div class="text-muted" style="font-size: 0.75rem; margin-top: 3px;" id="gstBreakdownDetails">
+                            <?php if ($cart['tax_type'] === 'intrastate'): ?>
+                                CGST: <?= format_inr($cart['cgst_amount']) ?> • SGST: <?= format_inr($cart['sgst_amount']) ?>
+                            <?php else: ?>
+                                IGST: <?= format_inr($cart['igst_amount']) ?>
+                            <?php endif; ?>
+                            • Base Taxable: <?= format_inr($cart['taxable_amount']) ?>
+                        </div>
+                    </div>
+                <?php endif; ?>
 
                 <div class="alert alert-light border small text-muted text-center m-0">
                     <i class="bi bi-shield-check text-success"></i> 100% Secure Checkout Guaranteed
@@ -237,6 +256,31 @@ function populateAddress(addr) {
     document.getElementById('shipping_pincode').value = addr.pincode;
     document.getElementById('shipping_city').value = addr.city;
     document.getElementById('shipping_state').value = addr.state;
+    document.getElementById('shipping_state').dispatchEvent(new Event('change'));
+}
+
+// Dynamic Intrastate (CGST/SGST) vs Interstate (IGST) live label switcher
+const stateSelect = document.getElementById('shipping_state');
+if (stateSelect) {
+    stateSelect.addEventListener('change', function () {
+        const val = this.value.trim().toLowerCase();
+        const badge = document.getElementById('gstBadgeType');
+        const details = document.getElementById('gstBreakdownDetails');
+        if (badge && details) {
+            const totalTax = <?= json_encode(format_inr($cart['tax_amount'])) ?>;
+            const cgst = <?= json_encode(format_inr($cart['cgst_amount'] > 0 ? $cart['cgst_amount'] : round($cart['tax_amount'] / 2, 2))) ?>;
+            const sgst = <?= json_encode(format_inr($cart['sgst_amount'] > 0 ? $cart['sgst_amount'] : round($cart['tax_amount'] / 2, 2))) ?>;
+            const baseTaxable = <?= json_encode(format_inr($cart['taxable_amount'])) ?>;
+
+            if (val === 'uttar pradesh' || val === '') {
+                badge.innerText = 'CGST + SGST';
+                details.innerText = 'CGST: ' + cgst + ' • SGST: ' + sgst + ' • Base Taxable: ' + baseTaxable;
+            } else {
+                badge.innerText = 'IGST';
+                details.innerText = 'IGST: ' + totalTax + ' • Base Taxable: ' + baseTaxable;
+            }
+        }
+    });
 }
 
 // Intercept checkout form to handle Razorpay Modal securely

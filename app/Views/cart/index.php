@@ -141,13 +141,13 @@
                     <h5 class="fw-bold mb-3"><?= __('order_summary') ?></h5>
 
                     <div class="d-flex justify-content-between mb-2">
-                        <span class="text-muted"><?= __('subtotal') ?></span>
+                        <span class="text-muted"><?= !empty($cart['prices_include_tax']) ? 'Subtotal (MRP Incl. Taxes)' : __('subtotal') ?></span>
                         <span class="fw-bold"><?= format_inr($cart['subtotal']) ?></span>
                     </div>
 
                     <?php if ($cart['discount'] > 0): ?>
                         <div class="d-flex justify-content-between mb-2 text-success">
-                            <span><?= __('discount') ?></span>
+                            <span><?= __('discount') ?> <?= !empty($cart['coupon_code']) ? '(' . e($cart['coupon_code']) . ')' : '' ?></span>
                             <span>-<?= format_inr($cart['discount']) ?></span>
                         </div>
                     <?php endif; ?>
@@ -157,17 +157,33 @@
                         <span><?= $cart['shipping_fee'] == 0 ? '<span class="text-success fw-bold">' . __('free_shipping') . '</span>' : format_inr($cart['shipping_fee']) ?></span>
                     </div>
 
-                    <div class="d-flex justify-content-between mb-3 text-muted small">
-                        <span>Estimated GST (<?= $cart['tax_rate'] ?>%)</span>
-                        <span><?= format_inr($cart['tax_amount']) ?></span>
-                    </div>
+                    <?php if (empty($cart['prices_include_tax'])): ?>
+                        <!-- Tax-Exclusive Mode: Explicitly add tax line -->
+                        <div class="d-flex justify-content-between mb-2 text-muted small">
+                            <span>Applicable GST</span>
+                            <span class="fw-semibold">+<?= format_inr($cart['tax_amount']) ?></span>
+                        </div>
+                    <?php endif; ?>
 
-                    <hr>
+                    <hr class="my-3">
 
-                    <div class="d-flex justify-content-between align-items-baseline mb-4">
+                    <div class="d-flex justify-content-between align-items-baseline mb-2">
                         <span class="h5 fw-bold text-dark"><?= __('total') ?></span>
-                        <span class="h3 fw-bold text-success"><?= format_inr($cart['total']) ?></span>
+                        <span class="h3 fw-bold text-success m-0"><?= format_inr($cart['total']) ?></span>
                     </div>
+
+                    <?php if (!empty($cart['prices_include_tax'])): ?>
+                        <!-- Tax-Inclusive Mode: Informative GST badge, no double charging! -->
+                        <div class="p-2 bg-light rounded text-muted small mb-3 border">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span><i class="bi bi-info-circle text-success me-1"></i> Includes <?= format_inr($cart['tax_amount']) ?> GST</span>
+                                <span class="badge bg-success-subtle text-success border border-success-subtle">All-Inclusive</span>
+                            </div>
+                            <div class="text-muted" style="font-size: 0.75rem; margin-top: 3px;">
+                                Base taxable value: <?= format_inr($cart['taxable_amount']) ?> • Applicable rates: <?= implode(', ', array_keys($cart['tax_summary'] ?? [])) ?: 'GST' ?>
+                            </div>
+                        </div>
+                    <?php endif; ?>
 
                     <a href="<?= url('/checkout') ?>" class="btn btn-ev-primary btn-lg w-100 py-3 fw-bold text-center">
                         <?= __('proceed_to_checkout') ?> <i class="bi bi-arrow-right"></i>

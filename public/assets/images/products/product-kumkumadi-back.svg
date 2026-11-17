@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">
+      <rect width="500" height="500" fill="#ffffff"/>
+      <ellipse cx="250" cy="435" rx="140" ry="16" fill="#d8dfd9" opacity="0.6"/>
+      <rect x="160" y="150" width="180" height="260" rx="18" fill="#1e3426"/>
+      <!-- Label Canvas -->
+      <rect x="175" y="165" width="150" height="230" rx="8" fill="#FAF7EF" stroke="#C6A45C" stroke-width="1.5"/>
+      <text x="250" y="185" font-family="Inter, sans-serif" font-size="9" font-weight="800" fill="#214D36" text-anchor="middle">PRODUCT SPECIFICATIONS</text>
+      <line x1="185" y1="192" x2="315" y2="192" stroke="#C6A45C" stroke-width="1"/>
+      
+      <!-- Supplement / Shastra Table -->
+      <text x="185" y="210" font-family="Inter, sans-serif" font-size="8" font-weight="700" fill="#26332B">Formulation:</text>
+      <text x="315" y="210" font-family="Inter, sans-serif" font-size="8" fill="#477A52" text-anchor="end">Classical Ayush</text>
+      
+      <text x="185" y="226" font-family="Inter, sans-serif" font-size="8" font-weight="700" fill="#26332B">HSN Code:</text>
+      <text x="315" y="226" font-family="Inter, sans-serif" font-size="8" fill="#214D36" text-anchor="end">33049990</text>
+      
+      <text x="185" y="242" font-family="Inter, sans-serif" font-size="8" font-weight="700" fill="#26332B">Daily Usage:</text>
+      <text x="185" y="258" font-family="Inter, sans-serif" font-size="7.5" fill="#555">3-4 drops gently smoothed onto clean face at night</text>
+      
+      <line x1="185" y1="272" x2="315" y2="272" stroke="#e0d7c3" stroke-width="1"/>
+      
+      <text x="185" y="288" font-family="Inter, sans-serif" font-size="8" font-weight="700" fill="#214D36">Quality & Safety Standards:</text>
+      <text x="185" y="302" font-family="Inter, sans-serif" font-size="7" fill="#477A52">✓ 100% Heavy-Metal Tested (NABL)</text>
+      <text x="185" y="314" font-family="Inter, sans-serif" font-size="7" fill="#477A52">✓ Zero Chemical Additives & Parabens</text>
+      <text x="185" y="326" font-family="Inter, sans-serif" font-size="7" fill="#477A52">✓ GMP Certified Clean Facility</text>
+      
+      <line x1="185" y1="336" x2="315" y2="336" stroke="#e0d7c3" stroke-width="1"/>
+      
+      <text x="185" y="350" font-family="Inter, sans-serif" font-size="7.5" font-weight="700" fill="#26332B">Mfg Lic No: AYU-UP-2024-884</text>
+      <text x="185" y="362" font-family="Inter, sans-serif" font-size="7" fill="#666">Pure Kashmiri Mogra Saffron base</text>
+      
+      <!-- Barcode simulation -->
+      <rect x="205" y="372" width="90" height="16" fill="#26332B"/>
+      <line x1="210" y1="372" x2="210" y2="388" stroke="#FAF7EF" stroke-width="2"/>
+      <line x1="216" y1="372" x2="216" y2="388" stroke="#FAF7EF" stroke-width="1"/>
+      <line x1="222" y1="372" x2="222" y2="388" stroke="#FAF7EF" stroke-width="3"/>
+      <line x1="230" y1="372" x2="230" y2="388" stroke="#FAF7EF" stroke-width="1.5"/>
+      <line x1="238" y1="372" x2="238" y2="388" stroke="#FAF7EF" stroke-width="2"/>
+      <line x1="245" y1="372" x2="245" y2="388" stroke="#FAF7EF" stroke-width="1"/>
+      <line x1="254" y1="372" x2="254" y2="388" stroke="#FAF7EF" stroke-width="2.5"/>
+      <line x1="262" y1="372" x2="262" y2="388" stroke="#FAF7EF" stroke-width="1"/>
+      <line x1="270" y1="372" x2="270" y2="388" stroke="#FAF7EF" stroke-width="2"/>
+      <line x1="280" y1="372" x2="280" y2="388" stroke="#FAF7EF" stroke-width="1.5"/>
+      <line x1="288" y1="372" x2="288" y2="388" stroke="#FAF7EF" stroke-width="2"/>
+    </svg>

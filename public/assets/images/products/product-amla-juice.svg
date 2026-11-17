@@ -1,18 +1,43 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">
       <defs>
-        <linearGradient id="g_255e99fbf113a6ac82505943506df436" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="#477A52"/>
-          <stop offset="100%" stop-color="#142e20"/>
+        <linearGradient id="grad_aaa50bc51edff9b41f65d9f5172fa164" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#2b5435"/>
+          <stop offset="60%" stop-color="#477A52"/>
+          <stop offset="100%" stop-color="#122419"/>
+        </linearGradient>
+        <linearGradient id="gold_aaa50bc51edff9b41f65d9f5172fa164" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#9A7B39"/>
+          <stop offset="35%" stop-color="#E5CA85"/>
+          <stop offset="70%" stop-color="#C6A45C"/>
+          <stop offset="100%" stop-color="#806226"/>
+        </linearGradient>
+        <linearGradient id="lid_aaa50bc51edff9b41f65d9f5172fa164" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#1c2b20"/>
+          <stop offset="50%" stop-color="#2d4233"/>
+          <stop offset="100%" stop-color="#16221a"/>
         </linearGradient>
       </defs>
-      <rect width="400" height="400" fill="#FAF7EF"/>
-      <ellipse cx="200" cy="340" rx="90" ry="16" fill="#e0dacb"/>
-      <path d="M 170 120 L 230 120 L 230 150 L 255 180 L 255 320 L 145 320 L 145 180 L 170 150 Z" fill="url(#g_255e99fbf113a6ac82505943506df436)"/>
-           <rect x="175" y="95" width="50" height="25" rx="4" fill="#C6A45C"/>
-           <rect x="155" y="195" width="90" height="95" rx="4" fill="#FAF7EF" stroke="#C6A45C" stroke-width="1.5"/>
-      <text x="200" y="215" font-family="Inter, sans-serif" font-size="10" font-weight="800" fill="#214D36" text-anchor="middle" letter-spacing="1">EVERYVEDA</text>
-      <text x="200" y="235" font-family="Inter, sans-serif" font-size="9" font-weight="700" fill="#26332B" text-anchor="middle">Organic Wild Amla Juice</text>
-      <circle cx="200" cy="255" r="8" fill="#C6A45C" opacity="0.3"/>
-      <text x="200" y="258" font-family="sans-serif" font-size="9" font-weight="bold" fill="#214D36" text-anchor="middle">🌿</text>
-      <text x="200" y="272" font-family="Inter, sans-serif" font-size="7" font-weight="600" fill="#477A52" text-anchor="middle">100% PURE HERBAL</text>
+      <!-- Pure Crisp White E-Commerce Studio Background -->
+      <rect width="500" height="500" fill="#ffffff"/>
+      
+      <ellipse cx="250" cy="435" rx="150" ry="18" fill="#d8dfd9" opacity="0.5"/>
+      <ellipse cx="250" cy="433" rx="110" ry="12" fill="#b9c5bc" opacity="0.6"/>
+      <ellipse cx="250" cy="430" rx="80" ry="8" fill="#8f9e93" opacity="0.4"/>
+    
+      
+          <rect x="180" y="150" width="140" height="265" rx="20" fill="url(#grad_aaa50bc51edff9b41f65d9f5172fa164)"/>
+          <path d="M 205 105 L 295 105 L 295 150 L 205 150 Z" fill="#2b4733"/>
+          <rect x="215" y="80" width="70" height="28" rx="6" fill="url(#gold_aaa50bc51edff9b41f65d9f5172fa164)"/>
+          <rect x="195" y="190" width="110" height="185" rx="10" fill="#FAF7EF" stroke="#C6A45C" stroke-width="1.8"/>
+          <text x="250" y="215" font-family="Inter, sans-serif" font-size="9.5" font-weight="900" fill="#214D36" text-anchor="middle" letter-spacing="1.5">EVERYVEDA</text>
+          <text x="250" y="227" font-family="Inter, sans-serif" font-size="6.5" font-weight="700" fill="#C6A45C" text-anchor="middle">FOREST HARVEST</text>
+          <line x1="215" y1="233" x2="285" y2="233" stroke="#C6A45C" stroke-width="0.8"/>
+          <text x="250" y="255" font-family="Inter, sans-serif" font-size="11.5" font-weight="800" fill="#26332B" text-anchor="middle">Forest Amla Juice</text>
+          <text x="250" y="273" font-family="Noto Sans Devanagari, sans-serif" font-size="10" font-weight="700" fill="#477A52" text-anchor="middle">जंगली आंवला रस</text>
+          <circle cx="250" cy="302" r="16" fill="#477A52" opacity="0.15"/>
+          <text x="250" y="309" font-size="18" text-anchor="middle">🌿</text>
+          <text x="250" y="333" font-family="Inter, sans-serif" font-size="7.5" font-weight="700" fill="#214D36" text-anchor="middle">100% PURE JUICE</text>
+          <rect x="215" y="344" width="70" height="17" rx="8" fill="#214D36"/>
+          <text x="250" y="356" font-family="Inter, sans-serif" font-size="8.5" font-weight="800" fill="#FAF7EF" text-anchor="middle">1000ml</text>
+        
     </svg>

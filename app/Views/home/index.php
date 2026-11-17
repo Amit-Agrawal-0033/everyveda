@@ -9,20 +9,22 @@
         <div class="carousel-inner">
             <?php foreach ($banners as $idx => $banner): ?>
                 <div class="carousel-item <?= $idx === 0 ? 'active' : '' ?>">
-                    <div class="hero-slide-item" style="background: linear-gradient(rgba(24, 56, 39, 0.85), rgba(33, 77, 54, 0.9)), url('<?= asset('assets/images/banners/' . $banner['image_path']) ?>') center/cover;">
+                    <div class="hero-slide-item" style="background: linear-gradient(90deg, rgba(15, 36, 24, 0.92) 0%, rgba(20, 52, 35, 0.75) 55%, rgba(20, 52, 35, 0.35) 100%), url('<?= asset('assets/images/banners/' . $banner['image_path']) ?>') center right/cover no-repeat;">
                         <div class="container text-center text-lg-start">
                             <div class="row align-items-center">
-                                <div class="col-lg-8">
-                                    <span class="hero-badge">🌿 100% Classical Shastra Ayurveda</span>
-                                    <h1 class="hero-title text-white"><?= e($banner['title']) ?></h1>
-                                    <p class="hero-subtitle text-white-50"><?= e($banner['subtitle']) ?></p>
-                                    <div class="d-flex flex-wrap gap-3 justify-content-center justify-content-lg-start">
-                                        <a href="<?= url($banner['link_url'] ?: '/catalog') ?>" class="btn-ev-secondary btn-lg">
-                                            <?= __('shop_now') ?> <i class="bi bi-arrow-right"></i>
-                                        </a>
-                                        <a href="<?= url('/about-us') ?>" class="btn btn-outline-light btn-lg px-4">
-                                            <?= __('about_us') ?>
-                                        </a>
+                                <div class="col-lg-8 col-xl-7">
+                                    <div class="hero-text-block">
+                                        <span class="hero-badge">🌿 100% Classical Shastra Ayurveda</span>
+                                        <h1 class="hero-title text-white"><?= e($banner['title']) ?></h1>
+                                        <p class="hero-subtitle text-white-50"><?= e($banner['subtitle']) ?></p>
+                                        <div class="hero-actions d-flex flex-wrap gap-3 justify-content-center justify-content-lg-start">
+                                            <a href="<?= url($banner['link_url'] ?: '/catalog') ?>" class="btn-ev-secondary btn-lg shadow-sm">
+                                                <?= __('shop_now') ?> <i class="bi bi-arrow-right"></i>
+                                            </a>
+                                            <a href="<?= url('/about-us') ?>" class="btn btn-outline-light btn-lg px-4">
+                                                <?= __('about_us') ?>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

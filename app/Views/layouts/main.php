@@ -139,7 +139,7 @@
 
         <!-- 3. Categories Navigation Bar -->
         <nav class="nav-categories-bar">
-            <div class="container d-flex align-items-center overflow-x-auto text-nowrap py-1">
+            <div class="container d-flex align-items-center justify-content-start justify-content-lg-center overflow-x-auto text-nowrap py-1">
                 <a href="<?= url('/catalog') ?>" class="category-nav-link <?= empty($_GET['category']) && str_ends_with($_SERVER['REQUEST_URI'] ?? '', '/catalog') ? 'active' : '' ?>">
                     <i class="bi bi-grid-fill me-1"></i> <?= __('catalog') ?>
                 </a>
@@ -235,6 +235,7 @@
                 <div class="col-12 col-md-3">
                     <h5><?= __('policies') ?></h5>
                     <ul class="list-unstyled small">
+                        <li class="mb-2"><a href="<?= url('/pricing') ?>">Pricing & GST Transparency</a></li>
                         <li class="mb-2"><a href="<?= url('/shipping-policy') ?>"><?= __('shipping_policy') ?></a></li>
                         <li class="mb-2"><a href="<?= url('/return-refund-policy') ?>"><?= __('return_policy') ?></a></li>
                         <li class="mb-2"><a href="<?= url('/privacy-policy') ?>"><?= __('privacy_policy') ?></a></li>

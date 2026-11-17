@@ -38,11 +38,15 @@ class CheckoutService
         $trackingToken = bin2hex(random_bytes(32));
 
         $shippingState = trim($data['shipping_state']);
-        $taxBreakdown = TaxService::calculateTax($cart['subtotal'] - $cart['discount'], $shippingState, (float)$cart['tax_rate']);
+        // Recalculate cart totals specifically for buyer's destination state
+        $cart = CartService::getCartDetails($shippingState);
+        if (empty($cart['items'])) {
+            throw new RuntimeException("Your shopping cart is empty.");
+        }
 
         // Persist Order Inside ACID Transaction
         return Database::transaction(function () use (
-            $data, $cart, $userId, $paymentMethod, $orderNumber, $trackingToken, $taxBreakdown
+            $data, $cart, $userId, $paymentMethod, $orderNumber, $trackingToken, $shippingState
         ) {
             $isSameAddress = !empty($data['same_as_shipping']);
 
@@ -58,22 +62,27 @@ class CheckoutService
                 'shipping_address_line1' => trim($data['shipping_address_line1']),
                 'shipping_address_line2' => !empty($data['shipping_address_line2']) ? trim($data['shipping_address_line2']) : null,
                 'shipping_city' => trim($data['shipping_city']),
-                'shipping_state' => trim($data['shipping_state']),
+                'shipping_state' => $shippingState,
                 'shipping_pincode' => trim($data['shipping_pincode']),
 
                 // Billing
                 'billing_address_line1' => $isSameAddress ? trim($data['shipping_address_line1']) : trim($data['billing_address_line1'] ?? $data['shipping_address_line1']),
                 'billing_address_line2' => $isSameAddress ? (!empty($data['shipping_address_line2']) ? trim($data['shipping_address_line2']) : null) : (!empty($data['billing_address_line2']) ? trim($data['billing_address_line2']) : null),
                 'billing_city' => $isSameAddress ? trim($data['shipping_city']) : trim($data['billing_city'] ?? $data['shipping_city']),
-                'billing_state' => $isSameAddress ? trim($data['shipping_state']) : trim($data['billing_state'] ?? $data['shipping_state']),
+                'billing_state' => $isSameAddress ? $shippingState : trim($data['billing_state'] ?? $shippingState),
                 'billing_pincode' => $isSameAddress ? trim($data['shipping_pincode']) : trim($data['billing_pincode'] ?? $data['shipping_pincode']),
 
-                // Amounts
+                // Financial Breakdowns (Immutable snapshot)
                 'subtotal' => $cart['subtotal'],
                 'discount_amount' => $cart['discount'],
                 'coupon_code' => $cart['coupon_code'],
                 'shipping_fee' => $cart['shipping_fee'],
-                'tax_amount' => $taxBreakdown['total_tax'],
+                'taxable_amount' => $cart['taxable_amount'],
+                'cgst_amount' => $cart['cgst_amount'],
+                'sgst_amount' => $cart['sgst_amount'],
+                'igst_amount' => $cart['igst_amount'],
+                'prices_include_tax' => $cart['prices_include_tax'] ? 1 : 0,
+                'tax_amount' => $cart['tax_amount'],
                 'total_amount' => $cart['total'],
 
                 // Status
@@ -84,13 +93,14 @@ class CheckoutService
                 'created_at' => date('Y-m-d H:i:s')
             ]);
 
-            // Save order items snapshot
+            // Save order items snapshot with granular tax and discount distribution
             foreach ($cart['items'] as $item) {
                 Database::insert('order_items', [
                     'order_id' => $orderId,
                     'product_id' => $item['product_id'],
                     'variant_id' => $item['variant_id'],
                     'sku' => $item['sku'],
+                    'hsn_code' => $item['hsn_code'] ?? '30049011',
                     'product_name_en' => $item['name'],
                     'product_name_hi' => $item['name'],
                     'variant_name_en' => $item['variant_name'],
@@ -98,9 +108,13 @@ class CheckoutService
                     'unit_price' => $item['unit_price'],
                     'quantity' => $item['quantity'],
                     'tax_rate' => $item['tax_rate'],
-                    'tax_amount' => round(($item['line_total'] * $item['tax_rate']) / (100 + $item['tax_rate']), 2),
-                    'discount_amount' => 0.00,
-                    'total_price' => $item['line_total'],
+                    'taxable_amount' => $item['taxable_amount'] ?? 0.00,
+                    'cgst_amount' => $item['cgst_amount'] ?? 0.00,
+                    'sgst_amount' => $item['sgst_amount'] ?? 0.00,
+                    'igst_amount' => $item['igst_amount'] ?? 0.00,
+                    'tax_amount' => $item['tax_amount'] ?? 0.00,
+                    'discount_amount' => $item['discount_amount'] ?? 0.00,
+                    'total_price' => $item['line_gross'] ?? ($item['unit_price'] * $item['quantity']),
                     'created_at' => date('Y-m-d H:i:s')
                 ]);
             }

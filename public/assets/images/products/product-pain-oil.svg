@@ -1,18 +1,48 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">
       <defs>
-        <linearGradient id="g_f8885a12fb6dfeba6fa36dad3d77fba9" x1="0%" y1="0%" x2="100%" y2="100%">
+        <linearGradient id="grad_63fc5e06d6de6d8aadee0c0e36a7fd97" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#6e511e"/>
+          <stop offset="60%" stop-color="#9A7B39"/>
+          <stop offset="100%" stop-color="#122419"/>
+        </linearGradient>
+        <linearGradient id="gold_63fc5e06d6de6d8aadee0c0e36a7fd97" x1="0%" y1="0%" x2="100%" y2="0%">
           <stop offset="0%" stop-color="#9A7B39"/>
-          <stop offset="100%" stop-color="#142e20"/>
+          <stop offset="35%" stop-color="#E5CA85"/>
+          <stop offset="70%" stop-color="#C6A45C"/>
+          <stop offset="100%" stop-color="#806226"/>
+        </linearGradient>
+        <linearGradient id="lid_63fc5e06d6de6d8aadee0c0e36a7fd97" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#1c2b20"/>
+          <stop offset="50%" stop-color="#2d4233"/>
+          <stop offset="100%" stop-color="#16221a"/>
         </linearGradient>
       </defs>
-      <rect width="400" height="400" fill="#FAF7EF"/>
-      <ellipse cx="200" cy="340" rx="90" ry="16" fill="#e0dacb"/>
-      <path d="M 170 120 L 230 120 L 230 150 L 255 180 L 255 320 L 145 320 L 145 180 L 170 150 Z" fill="url(#g_f8885a12fb6dfeba6fa36dad3d77fba9)"/>
-           <rect x="175" y="95" width="50" height="25" rx="4" fill="#C6A45C"/>
-           <rect x="155" y="195" width="90" height="95" rx="4" fill="#FAF7EF" stroke="#C6A45C" stroke-width="1.5"/>
-      <text x="200" y="215" font-family="Inter, sans-serif" font-size="10" font-weight="800" fill="#214D36" text-anchor="middle" letter-spacing="1">EVERYVEDA</text>
-      <text x="200" y="235" font-family="Inter, sans-serif" font-size="9" font-weight="700" fill="#26332B" text-anchor="middle">Maha Narayan Joint Oil</text>
-      <circle cx="200" cy="255" r="8" fill="#C6A45C" opacity="0.3"/>
-      <text x="200" y="258" font-family="sans-serif" font-size="9" font-weight="bold" fill="#214D36" text-anchor="middle">🌿</text>
-      <text x="200" y="272" font-family="Inter, sans-serif" font-size="7" font-weight="600" fill="#477A52" text-anchor="middle">100% PURE HERBAL</text>
+      <!-- Pure Crisp White E-Commerce Studio Background -->
+      <rect width="500" height="500" fill="#ffffff"/>
+      
+      <ellipse cx="250" cy="435" rx="150" ry="18" fill="#d8dfd9" opacity="0.5"/>
+      <ellipse cx="250" cy="433" rx="110" ry="12" fill="#b9c5bc" opacity="0.6"/>
+      <ellipse cx="250" cy="430" rx="80" ry="8" fill="#8f9e93" opacity="0.4"/>
+    
+      
+          <!-- Bottle Body -->
+          <path d="M 215 130 L 285 130 L 285 160 L 320 205 L 320 410 C 320 418 314 425 305 425 L 195 425 C 186 425 180 418 180 410 L 180 205 L 215 160 Z" fill="url(#grad_63fc5e06d6de6d8aadee0c0e36a7fd97)"/>
+          <!-- Glass Specular Highlight -->
+          <path d="M 195 210 L 205 210 L 205 410 L 195 410 Z" fill="#ffffff" opacity="0.15"/>
+          <!-- Cap / Dropper -->
+          <rect x="220" y="100" width="60" height="32" rx="6" fill="url(#gold_63fc5e06d6de6d8aadee0c0e36a7fd97)"/>
+          <rect x="235" y="70" width="30" height="32" rx="4" fill="#1e2d24"/>
+          <!-- Label -->
+          <rect x="195" y="235" width="110" height="160" rx="8" fill="#FAF7EF" stroke="#C6A45C" stroke-width="1.8"/>
+          <rect x="200" y="240" width="100" height="150" rx="6" fill="none" stroke="#214D36" stroke-width="0.7" stroke-dasharray="2,2"/>
+          <text x="250" y="260" font-family="Inter, sans-serif" font-size="9" font-weight="900" fill="#214D36" text-anchor="middle" letter-spacing="1.5">EVERYVEDA</text>
+          <text x="250" y="271" font-family="Inter, sans-serif" font-size="6.5" font-weight="700" fill="#C6A45C" text-anchor="middle">SHASTRA FORMULA</text>
+          <line x1="215" y1="276" x2="285" y2="276" stroke="#C6A45C" stroke-width="0.8"/>
+          <text x="250" y="295" font-family="Inter, sans-serif" font-size="11" font-weight="800" fill="#26332B" text-anchor="middle">Maha Narayan Oil</text>
+          <text x="250" y="312" font-family="Noto Sans Devanagari, sans-serif" font-size="9.5" font-weight="700" fill="#477A52" text-anchor="middle">महानारायण तैल</text>
+          <circle cx="250" cy="336" r="13" fill="#C6A45C" opacity="0.18"/>
+          <text x="250" y="342" font-size="14" text-anchor="middle">💆‍♂️</text>
+          <rect x="215" y="358" width="70" height="16" rx="8" fill="#214D36"/>
+          <text x="250" y="369" font-family="Inter, sans-serif" font-size="8" font-weight="800" fill="#FAF7EF" text-anchor="middle">200ml</text>
+        
     </svg>

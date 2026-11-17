@@ -224,25 +224,43 @@ a:hover {
 
 /* Navigation Categories Bar */
 .nav-categories-bar {
-    background: var(--ev-cream);
+    background: #fdfbf7;
     border-top: 1px solid var(--ev-border);
     border-bottom: 1px solid var(--ev-border);
+}
+
+.nav-categories-bar .container {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+
+.nav-categories-bar .container::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+    width: 0;
+    height: 0;
 }
 
 .category-nav-link {
     color: var(--ev-forest);
     font-weight: 600;
     font-size: 0.88rem;
-    padding: 12px 16px;
-    display: inline-block;
-    transition: all 0.2s;
+    padding: 10px 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
     border-bottom: 2px solid transparent;
+    text-decoration: none;
+    white-space: nowrap;
+    border-radius: 4px 4px 0 0;
 }
 
 .category-nav-link:hover, .category-nav-link.active {
-    color: var(--ev-botanical);
+    color: var(--ev-forest);
     border-bottom-color: var(--ev-gold);
-    background-color: rgba(198, 164, 92, 0.08);
+    background-color: rgba(198, 164, 92, 0.12);
 }
 
 /* Trust Badges Strip */
@@ -286,48 +304,143 @@ a:hover {
     margin: 0;
 }
 
-/* Hero Carousel */
+/* Hero Carousel — Seamless Professional Transitions with ZERO Text Overlap */
 .hero-slider-wrap {
-    background: var(--ev-cream);
+    background: #0f2418;
     overflow: hidden;
+    position: relative;
+}
+
+.hero-slider-wrap .carousel-fade .carousel-item {
+    opacity: 0;
+    transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1;
+}
+
+.hero-slider-wrap .carousel-fade .carousel-item.active {
+    opacity: 1;
+    z-index: 2;
 }
 
 .hero-slide-item {
-    min-height: 440px;
+    min-height: 480px;
     display: flex;
     align-items: center;
     background-size: cover;
-    background-position: center;
-    padding: 60px 0;
+    background-position: center right;
+    padding: 70px 0;
+    position: relative;
+}
+
+.hero-text-block {
+    max-width: 620px;
+}
+
+/* Slide Text Animation: Smooth Staggered Reveal */
+.hero-badge,
+.hero-title,
+.hero-subtitle,
+.hero-actions {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+}
+
+.carousel-item.active .hero-badge {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.12s;
+}
+
+.carousel-item.active .hero-title {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.22s;
+}
+
+.carousel-item.active .hero-subtitle {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.32s;
+}
+
+.carousel-item.active .hero-actions {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.42s;
+}
+
+/* Non-active slide: IMMEDIATELY hide text to completely eliminate overlapping/ghosting */
+.carousel-item:not(.active) .hero-badge,
+.carousel-item:not(.active) .hero-title,
+.carousel-item:not(.active) .hero-subtitle,
+.carousel-item:not(.active) .hero-actions {
+    opacity: 0 !important;
+    transform: translateY(-12px) !important;
+    transition: opacity 0.18s ease, transform 0.18s ease !important;
+    transition-delay: 0s !important;
+    visibility: hidden;
 }
 
 .hero-badge {
     display: inline-block;
-    background: rgba(198, 164, 92, 0.18);
-    color: var(--ev-forest);
+    background: rgba(198, 164, 92, 0.22);
+    color: #FAF7EF;
     border: 1px solid var(--ev-gold);
-    padding: 4px 14px;
-    border-radius: 20px;
-    font-size: 0.8rem;
+    padding: 6px 16px;
+    border-radius: 30px;
+    font-size: 0.82rem;
     font-weight: 700;
-    margin-bottom: 15px;
+    margin-bottom: 16px;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 1.2px;
+    backdrop-filter: blur(4px);
 }
 
 .hero-title {
-    font-size: 2.75rem;
+    font-size: clamp(2rem, 4vw, 3rem);
     font-weight: 800;
-    color: var(--ev-forest);
-    line-height: 1.15;
-    margin-bottom: 18px;
+    color: #ffffff;
+    line-height: 1.18;
+    margin-bottom: 16px;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.4);
 }
 
 .hero-subtitle {
-    font-size: 1.15rem;
-    color: var(--ev-text);
-    margin-bottom: 25px;
+    font-size: clamp(1rem, 2vw, 1.18rem);
+    color: rgba(250, 247, 239, 0.88);
+    margin-bottom: 28px;
+    line-height: 1.6;
     max-width: 580px;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+}
+
+.hero-slider-wrap .carousel-indicators [data-bs-target] {
+    width: 32px;
+    height: 4px;
+    border-radius: 2px;
+    background-color: var(--ev-gold);
+    opacity: 0.4;
+    transition: all 0.3s;
+}
+
+.hero-slider-wrap .carousel-indicators .active {
+    width: 48px;
+    opacity: 1;
+    background-color: #ffffff;
+}
+
+.hero-slider-wrap .carousel-control-prev,
+.hero-slider-wrap .carousel-control-next {
+    width: 50px;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.hero-slider-wrap .carousel-control-prev:hover,
+.hero-slider-wrap .carousel-control-next:hover {
+    opacity: 1;
 }
 
 /* Product Cards */

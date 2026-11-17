@@ -1,19 +1,27 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 450" width="1200" height="450">
-      <defs>
-        <linearGradient id="bgG" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="#163524"/>
-          <stop offset="50%" stop-color="#214D36"/>
-          <stop offset="100%" stop-color="#366345"/>
-        </linearGradient>
-      </defs>
-      <rect width="1200" height="450" fill="url(#bgG)"/>
-      <circle cx="1050" cy="225" r="280" fill="#477A52" opacity="0.25"/>
-      <circle cx="1100" cy="225" r="180" fill="#C6A45C" opacity="0.15"/>
-      <!-- Leaves Decor -->
-      <path d="M 980 120 C 1040 160 1060 260 990 340 C 940 280 920 200 980 120 Z" fill="#C6A45C" opacity="0.3"/>
-      <text x="80" y="150" font-family="Inter, sans-serif" font-size="16" font-weight="700" fill="#C6A45C" letter-spacing="2">AUTHENTIC AYURVEDIC WELLNESS</text>
-      <text x="80" y="215" font-family="Inter, sans-serif" font-size="38" font-weight="800" fill="#FAF7EF">Royal Gold Chyawanprash For Immunity</text>
-      <text x="80" y="270" font-family="Inter, sans-serif" font-size="18" fill="#e2ddcf">Enriched with fresh forest Amla, pure Saffron &amp; Desi Cow Ghee.</text>
-      <rect x="80" y="320" width="190" height="50" rx="25" fill="#C6A45C"/>
-      <text x="175" y="352" font-family="Inter, sans-serif" font-size="16" font-weight="700" fill="#214D36" text-anchor="middle">SHOP NOW →</text>
-    </svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 520" width="1400" height="520">
+        <defs>
+          <radialGradient id="amberGlow" cx="70%" cy="40%" r="55%">
+            <stop offset="0%" stop-color="#D9A84E" stop-opacity="0.38"/>
+            <stop offset="60%" stop-color="#2d5238" stop-opacity="0.12"/>
+            <stop offset="100%" stop-color="#142e20" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="chyawanBg" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#152f21"/>
+            <stop offset="50%" stop-color="#1f422e"/>
+            <stop offset="100%" stop-color="#2b593f"/>
+          </linearGradient>
+        </defs>
+        <rect width="1400" height="520" fill="url(#chyawanBg)"/>
+        <rect width="1400" height="520" fill="url(#amberGlow)"/>
+        <!-- Traditional Ayurvedic Herbs & Gold Flakes Artwork -->
+        <circle cx="1120" cy="250" r="190" fill="none" stroke="#C6A45C" stroke-width="1.8" opacity="0.3"/>
+        <circle cx="1120" cy="250" r="130" fill="#C6A45C" opacity="0.08"/>
+        <!-- Stylized Amla Fruit & Leaves -->
+        <circle cx="1120" cy="250" r="55" fill="#477A52" opacity="0.65"/>
+        <circle cx="1120" cy="250" r="45" fill="#60946b" opacity="0.5"/>
+        <path d="M 1120 195 C 1145 170 1195 185 1190 220 C 1150 215 1130 205 1120 195 Z" fill="#C6A45C" opacity="0.5"/>
+        <path d="M 1070 280 C 1020 300 1010 340 1040 370 C 1070 330 1075 300 1070 280 Z" fill="#C6A45C" opacity="0.4"/>
+        <!-- Saffron Thread Spirals -->
+        <path d="M 1220 180 Q 1260 210 1240 260 T 1280 320" fill="none" stroke="#D97724" stroke-width="2.5" opacity="0.6"/>
+        <path d="M 1040 180 Q 1000 230 1030 280" fill="none" stroke="#D97724" stroke-width="2" opacity="0.5"/>
+      </svg>

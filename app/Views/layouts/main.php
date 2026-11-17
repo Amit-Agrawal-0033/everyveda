@@ -67,12 +67,8 @@
             <div class="row align-items-center">
                 <!-- Logo -->
                 <div class="col-6 col-lg-3">
-                    <a href="<?= url('/') ?>" class="brand-logo">
-                        <div class="brand-emblem">ॐ</div>
-                        <div>
-                            <span class="brand-name">Every<span style="color: var(--ev-gold);">Veda</span></span>
-                            <span class="brand-tagline-text">Pure Ayurvedic Living</span>
-                        </div>
+                    <a href="<?= url('/') ?>" class="brand-logo d-flex align-items-center gap-2 text-decoration-none">
+                        <img src="<?= asset('assets/images/logo.png') ?>" alt="EveryVeda - Ayurveda for Every Life" class="img-fluid" style="height: 54px; width: auto; object-fit: contain;">
                     </a>
                 </div>
 
@@ -192,16 +188,16 @@
                 <!-- Col 1: Brand Info -->
                 <div class="col-12 col-md-4">
                     <div class="d-flex align-items-center gap-2 mb-3">
-                        <div class="brand-emblem" style="background:#FAF7EF; color:#214D36;">ॐ</div>
-                        <h4 class="m-0 text-white fw-bold">Every<span style="color: var(--ev-gold);">Veda</span></h4>
+                        <img src="<?= asset('assets/images/logo.png') ?>" alt="EveryVeda" style="height: 48px; width: auto; object-fit: contain; background:#FAF7EF; padding: 4px 10px; border-radius: 6px;">
                     </div>
                     <p class="small opacity-75">
                         <?= __('footer_about') ?>
                     </p>
                     <p class="small text-white-50">
-                        <strong><?= __('gstin') ?>:</strong> <?= e($settings['gstin'] ?? '07AAAAE1234P1Z5') ?><br>
-                        <strong><?= __('fssai') ?>:</strong> <?= e($settings['fssai_license'] ?? '12723999000123') ?><br>
-                        <strong>AYUSH Lic:</strong> <?= e($settings['ayush_license'] ?? 'AYUSH-UP-2023-889') ?>
+                        <strong>EVERYVEDA WELLNESS PVT. LTD.</strong><br>
+                        B-32, Sector-63, Noida, Uttar Pradesh - 201301<br>
+                        <strong>Phone:</strong> <a href="tel:9580251422" class="text-white-50 text-decoration-none">+91 95802 51422</a><br>
+                        <strong>Email:</strong> <a href="mailto:care@everyveda.com" class="text-white-50 text-decoration-none">care@everyveda.com</a>
                     </p>
                 </div>
 

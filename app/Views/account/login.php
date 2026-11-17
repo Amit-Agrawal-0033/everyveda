@@ -3,7 +3,7 @@
         <div class="col-md-6 col-lg-5">
             <div class="card border shadow-sm p-4 bg-white rounded-3">
                 <div class="text-center mb-4">
-                    <div class="brand-emblem mx-auto mb-2" style="width: 48px; height: 48px; font-size: 24px;">ॐ</div>
+                    <img src="<?= asset('assets/images/logo.png') ?>" alt="EveryVeda" style="height: 52px; width: auto; object-fit: contain;" class="mb-2">
                     <h2 class="h3 fw-bold text-success m-0"><?= __('login') ?></h2>
                     <p class="text-muted small">Sign in to access your orders, saved addresses & wellness points.</p>
                 </div>

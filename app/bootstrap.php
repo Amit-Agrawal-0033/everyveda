@@ -57,7 +57,11 @@ if ($isDebug && !$isProduction) {
     ini_set('display_errors', '0');
     ini_set('display_startup_errors', '0');
     ini_set('log_errors', '1');
-    ini_set('error_log', STORAGE_PATH . '/logs/error.log');
+    $logDir = STORAGE_PATH . '/logs';
+    if (!is_dir($logDir)) {
+        @mkdir($logDir, 0755, true);
+    }
+    ini_set('error_log', is_dir($logDir) && is_writable($logDir) ? ($logDir . '/error.log') : 'php://stderr');
 }
 
 // 6. Timezone Configuration (India Standard Time by default)
@@ -73,12 +77,21 @@ if (session_status() === PHP_SESSION_NONE) {
     
     $secureCookie = filter_var(env('SESSION_SECURE_COOKIE', $isHttps), FILTER_VALIDATE_BOOLEAN);
 
+    // Resilient Session Storage: Use STORAGE_PATH if writable, otherwise fallback to system temp (/tmp on Vercel)
     $sessionDir = STORAGE_PATH . '/sessions';
     if (!is_dir($sessionDir)) {
         @mkdir($sessionDir, 0755, true);
     }
     if (is_dir($sessionDir) && is_writable($sessionDir)) {
         session_save_path($sessionDir);
+    } else {
+        $tempSessionDir = sys_get_temp_dir() . '/everyveda_sessions';
+        if (!is_dir($tempSessionDir)) {
+            @mkdir($tempSessionDir, 0777, true);
+        }
+        if (is_dir($tempSessionDir) && is_writable($tempSessionDir)) {
+            session_save_path($tempSessionDir);
+        }
     }
 
     ini_set('session.cookie_lifetime', (string)$sessionLifetime);

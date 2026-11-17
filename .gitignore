@@ -7,6 +7,7 @@
 # Storage
 /storage/logs/*.log
 /storage/cache/*
+/storage/sessions/*
 /storage/invoices/*.pdf
 /storage/invoices/*.html
 /storage/uploads/private/*
@@ -14,6 +15,7 @@
 # Keep .gitkeep files in storage directories
 !/storage/logs/.gitkeep
 !/storage/cache/.gitkeep
+!/storage/sessions/.gitkeep
 !/storage/invoices/.gitkeep
 !/storage/uploads/.gitkeep
 

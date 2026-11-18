@@ -34,6 +34,11 @@ class Database
             PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES {$charset} COLLATE {$charset}_unicode_ci",
         ];
 
+        // Automatic SSL mode for Cloud Databases (Aiven, TiDB, PlanetScale, etc.)
+        if (env('DB_SSL', false) || $port !== 3306 || str_contains($host, 'aivencloud.com') || str_contains($host, 'tidbcloud.com')) {
+            $options[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = false;
+        }
+
         try {
             $this->pdo = new PDO($dsn, (string)$user, (string)$pass, $options);
         } catch (PDOException $e) {

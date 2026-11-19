@@ -147,12 +147,16 @@ function __(string $key, array $replace = [], ?string $locale = null): string
 }
 
 /**
- * Get CSRF Token from Session, generating if missing
+ * Get CSRF Token from Session, generating if missing (with cryptographically signed HMAC fallback)
  */
 function csrf_token(): string
 {
     if (empty($_SESSION['_csrf_token'])) {
-        $_SESSION['_csrf_token'] = bin2hex(random_bytes(32));
+        $appKey = (string)env('APP_KEY', 'everyveda-base64-secret-appkey-9a8f7e6d5c4b3a210987654321fedcba');
+        $time = time();
+        $random = bin2hex(random_bytes(16));
+        $sig = hash_hmac('sha256', "{$time}.{$random}", $appKey);
+        $_SESSION['_csrf_token'] = "{$time}.{$random}.{$sig}";
     }
     return $_SESSION['_csrf_token'];
 }
@@ -166,14 +170,39 @@ function csrf_field(): string
 }
 
 /**
- * Verify CSRF Token
+ * Verify CSRF Token (Session match + Serverless resilient HMAC fallback)
  */
 function verify_csrf_token(?string $token): bool
 {
-    if (empty($token) || empty($_SESSION['_csrf_token'])) {
+    if (empty($token)) {
         return false;
     }
-    return hash_equals($_SESSION['_csrf_token'], $token);
+
+    // 1. Primary check: Exact match with current session token
+    if (!empty($_SESSION['_csrf_token']) && hash_equals($_SESSION['_csrf_token'], $token)) {
+        return true;
+    }
+
+    // 2. Resilient cryptographic HMAC check for serverless cross-instance requests
+    $appKey = (string)env('APP_KEY', 'everyveda-base64-secret-appkey-9a8f7e6d5c4b3a210987654321fedcba');
+    $parts = explode('.', $token);
+    if (count($parts) === 3) {
+        [$timeStr, $random, $sig] = $parts;
+        $tokenTime = (int)$timeStr;
+        $lifetime = (int)env('CSRF_TOKEN_LIFETIME', 7200);
+
+        // Valid if generated within configured lifetime (2 hours)
+        if ($tokenTime > 0 && (time() - $tokenTime) <= $lifetime) {
+            $expectedSig = hash_hmac('sha256', "{$tokenTime}.{$random}", $appKey);
+            if (hash_equals($expectedSig, $sig)) {
+                // Restore into current session
+                $_SESSION['_csrf_token'] = $token;
+                return true;
+            }
+        }
+    }
+
+    return false;
 }
 
 /**

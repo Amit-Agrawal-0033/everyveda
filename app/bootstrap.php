@@ -77,27 +77,40 @@ if (session_status() === PHP_SESSION_NONE) {
     
     $secureCookie = filter_var(env('SESSION_SECURE_COOKIE', $isHttps), FILTER_VALIDATE_BOOLEAN);
 
-    // Resilient Session Storage: Use STORAGE_PATH if writable, otherwise fallback to system temp (/tmp on Vercel)
-    $sessionDir = STORAGE_PATH . '/sessions';
-    if (!is_dir($sessionDir)) {
-        @mkdir($sessionDir, 0755, true);
-    }
-    if (is_dir($sessionDir) && is_writable($sessionDir)) {
-        session_save_path($sessionDir);
-    } else {
-        $tempSessionDir = sys_get_temp_dir() . '/everyveda_sessions';
-        if (!is_dir($tempSessionDir)) {
-            @mkdir($tempSessionDir, 0777, true);
+    // Database Sessions (Aiven MySQL) for robust cross-lambda persistence on Vercel
+    $usePdoSession = false;
+    try {
+        if (env('DB_HOST') && class_exists(\App\Core\PdoSessionHandler::class)) {
+            \App\Core\Database::pdo();
+            session_set_save_handler(new \App\Core\PdoSessionHandler(), true);
+            $usePdoSession = true;
         }
-        if (is_dir($tempSessionDir) && is_writable($tempSessionDir)) {
-            session_save_path($tempSessionDir);
+    } catch (\Throwable $e) {
+        error_log("Database session fallback: " . $e->getMessage());
+    }
+
+    if (!$usePdoSession) {
+        $sessionDir = STORAGE_PATH . '/sessions';
+        if (!is_dir($sessionDir)) {
+            @mkdir($sessionDir, 0755, true);
+        }
+        if (is_dir($sessionDir) && is_writable($sessionDir)) {
+            session_save_path($sessionDir);
+        } else {
+            $tempSessionDir = sys_get_temp_dir() . '/everyveda_sessions';
+            if (!is_dir($tempSessionDir)) {
+                @mkdir($tempSessionDir, 0777, true);
+            }
+            if (is_dir($tempSessionDir) && is_writable($tempSessionDir)) {
+                session_save_path($tempSessionDir);
+            }
         }
     }
 
     ini_set('session.cookie_lifetime', (string)$sessionLifetime);
     ini_set('session.gc_maxlifetime', (string)$sessionLifetime);
     ini_set('session.use_only_cookies', '1');
-    ini_set('session.use_strict_mode', '1');
+    ini_set('session.use_strict_mode', '0');
 
     session_set_cookie_params([
         'lifetime' => $sessionLifetime,
